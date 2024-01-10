@@ -68,7 +68,7 @@ class OverideData
         return $num;
     }
 
-    public function countData4($table, $field, $value, $field1,$value1, $field2,$value2, $field3,$value3, $field4, $value4)
+    public function countData4($table, $field, $value, $field1, $value1, $field2, $value2, $field3, $value3, $field4, $value4)
     {
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $field = '$value' AND ($field1 = '$value1' OR $field2 = '$value2' OR $field3 = '$value3') AND $field4 = '$value4'");
         $num = $query->rowCount();
@@ -95,7 +95,7 @@ class OverideData
         return $result;
     }
 
-    public function getcolumns($table,$id,$date, $firstname, $age)
+    public function getcolumns($table, $id, $date, $firstname, $age)
     {
         $query = $this->_pdo->query("SELECT $id,$date, $firstname, $age FROM $table");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -170,7 +170,7 @@ class OverideData
         return $result;
     }
 
-    public function getSumD2($table, $variable, $field, $value,$field1, $value1)
+    public function getSumD2($table, $variable, $field, $value, $field1, $value1)
     {
         $query = $this->_pdo->query("SELECT SUM($variable) FROM $table WHERE $field = '$value' AND $field1 = '$value1'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -358,14 +358,14 @@ class OverideData
     }
 
 
-    public function SelectTests($table, $id1, $id2, $table2, $appointment_id,$id3) 
+    public function SelectTests($table, $id1, $id2, $table2, $appointment_id, $id3)
     {
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $id1 IN (SELECT $id2 FROM $table2 WHERE $appointment_id = '$id3')");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
-        public function SelectTests1($table, $id1, $test_ids) 
+    public function SelectTests1($table, $id1, $test_ids)
     {
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $id1 IN (" . (implode(',', $test_ids)) . ") order by name asc");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -401,6 +401,21 @@ class OverideData
         return $num;
     }
 
-    
-}
+    public function getNews7Month()
+    {
+        $query = $this->_pdo->query("SELECT * FROM clients WHERE MONTH(created_on) >= MONTH(NOW() - INTERVAL 2 MONTH)
+                            AND (YEAR(created_on) <= YEAR(NOW() - INTERVAL 0 MONTH))");
 
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
+    public function getNews7Month2()
+    {
+        $query = $this->_pdo->query("SELECT * FROM clients WHERE MONTH(created_on) >= MONTH(NOW() - INTERVAL 2 MONTH)
+                            AND (YEAR(created_on) <= YEAR(NOW() - INTERVAL 0 MONTH))");
+        $num = $query->rowCount();
+        return $num;
+    }
+}
