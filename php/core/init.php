@@ -3,9 +3,9 @@ session_start();
 
 $GLOBALS['config'] = array(
   'mysql' => array(
-        'host' => '127.0.0.1',
-      'username' => 'root',
-      'password' => '$Subaru@2022',
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => '@Subaru@2022',
       'db' => 'penplus'
   	),
   'remember' =>array(
