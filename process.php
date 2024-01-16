@@ -12,3 +12,8 @@ foreach ($all_generic as $name) {
     $output[] = $name;
 }
 echo json_encode($output);
+
+
+
+
+

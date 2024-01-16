@@ -8,7 +8,7 @@
 /* global moment:false, Chart:false, Sparkline:false */
 
 $(function () {
-  ("use strict");
+  "use strict";
 
   // Make the dashboard widgets sortable Using jquery UI
   $(".connectedSortable").sortable({
@@ -139,29 +139,6 @@ $(function () {
     height: "250px",
   });
 
-  // Function to fetch data from PHP endpoint
-  function fetchData() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          var chartData = JSON.parse(xhr.responseText);
-          // createChart(chartData);
-          console.log(chartData);
-        } else {
-          console.error("Failed to fetch data");
-        }
-      }
-    };
-    xhr.open("GET", "dashboard1.php", true);
-    xhr.send();
-  }
-
-  // Call the function to fetch data and create the chart
-  fetchData();
-
-
-
   /* Chart.js Charts */
   // Sales chart
   var salesChartCanvas = document
@@ -225,7 +202,7 @@ $(function () {
   // eslint-disable-next-line no-unused-vars
   var salesChart = new Chart(salesChartCanvas, {
     // lgtm[js/unused-local-variable]
-    type: "bar",
+    type: "line",
     data: salesChartData,
     options: salesChartOptions,
   });
@@ -241,7 +218,6 @@ $(function () {
       },
     ],
   };
-
   var pieOptions = {
     legend: {
       display: false,
@@ -336,4 +312,4 @@ $(function () {
     data: salesGraphChartData,
     options: salesGraphChartOptions,
   });
-})
+});

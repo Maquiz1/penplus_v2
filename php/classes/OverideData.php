@@ -418,4 +418,29 @@ class OverideData
         $num = $query->rowCount();
         return $num;
     }
+
+    public function getMonthData()
+    {
+        $query = $this->_pdo->query("SELECT YEAR(created_on) AS year, MONTH(created_on) AS month, COUNT(*) AS records_count 
+          FROM clients 
+          GROUP BY YEAR(created_on), MONTH(created_on) 
+          ORDER BY YEAR(created_on), MONTH(created_on)");
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getMonthSum()
+    {
+        $query = $this->_pdo->query("SELECT MONTHNAME(created_on) as monthname, SUM(status) as amount FROM clients WHERE status = 1 GROUP BY monthname");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getMonthCount()
+    {
+        $query = $this->_pdo->query("SELECT MONTHNAME(created_on) as monthname, COUNT(status) as amount FROM clients WHERE status = 1 GROUP BY monthname");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
