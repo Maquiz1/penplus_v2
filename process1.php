@@ -23,9 +23,17 @@ if ($_GET['content'] == 'all') {
 } elseif ($_GET['content'] == 'site') {
     if ($_GET['getUid']) {
         $output = array();
-        $query = $override->getMonthCount();
+        $query = $override->getMonthCountSite();
         foreach ($query as $data) {
-            $output[] = $data;
+            $site = $row['site_id'];
+            $month = $row['monthname'];
+            $countData = $row['count_data'];
+
+            $output[$site][] = [
+                'monthname' => $month,
+                'count_data' => $countData,
+            ];
+
         }
         // // Convert PHP array to JSON
         $chartDataJSON = json_encode($output);
@@ -47,3 +55,6 @@ if ($_GET['content'] == 'all') {
         echo $chartDataJSON;
     }
 }
+
+// $query = $override->getMonthCountSite();
+// print_r($query);

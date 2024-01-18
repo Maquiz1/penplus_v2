@@ -443,4 +443,11 @@ class OverideData
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getMonthCountSite()
+    {
+        $query = $this->_pdo->query("SELECT site_id, MONTHNAME(created_on) as monthname,COUNT(*) as count_data FROM clients WHERE status = 1 GROUP BY monthname, site_id ORDER BY monthname, site_id");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
