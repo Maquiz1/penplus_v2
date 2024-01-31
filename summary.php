@@ -596,7 +596,7 @@ if ($user->isLoggedIn()) {
                                             <?php } ?>
 
                                         </div>
-                                        <!-- /.tab-pane -->
+                                        <!-- /.tab-pane historys -->
                                         <div class="tab-pane" id="symptoms">
                                             <?php
                                             $x = 1;
@@ -851,7 +851,7 @@ if ($user->isLoggedIn()) {
                                             <?php } ?>
 
                                         </div>
-                                        <!-- /.tab-pane -->
+                                        <!-- /.tab-pane symptoms -->
                                         <div class="tab-pane" id="vitals">
                                             <?php
                                             $x = 1;
@@ -905,6 +905,162 @@ if ($user->isLoggedIn()) {
                                                                 <?php if ($vital['pr']) { ?>
                                                                     <p class="text-muted">PR :- <?= $vital['pr']; ?></p>
                                                                 <?php } ?>
+
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <!-- <a href="#" class="btn btn-primary btn-sm">Read more</a> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                        </div>
+                                        <!-- /.tab-pane vitals -->
+
+                                        <div class="tab-pane" id="results">
+                                            <?php
+                                            $x = 1;
+                                            $results = $override->getNewsAsc('results', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
+
+                                            foreach ($results as $result) { ?>
+                                                <!-- The timeline -->
+                                                <div class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-success">
+                                                            <?= $result['visit_date']; ?>
+                                                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-envelope bg-primary"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time timeline-header"><i class="far fa-clock"></i> <?= $result['visit_day']; ?></span>
+
+                                                            <h3 class="timeline-header"><a href="#">List of Patient's</a> Results </h3>
+
+                                                            <div class="timeline-body">
+
+                                                                <?php if ($result['ecg_performed'] == 1) { ?>
+                                                                    <?php if ($result['ecg'] == 1) { ?>
+                                                                        <p class="text-muted">ECG ( DONE ) :- ( Single lead ) </p>
+                                                                    <?php } elseif ($result['ecg'] == 2) { ?>
+                                                                        <p class="text-muted">ECG ( DONE ) :- ( 12 lead ) </p>
+                                                                    <?php } elseif ($result['ecg'] == 3) { ?>
+                                                                        <p class="text-muted">ECG ( DONE ) :- ( Normal sinus rythm ) </p>
+                                                                    <?php } elseif ($result['ecg'] == 4) { ?>
+                                                                        <p class="text-muted">ECG ( DONE ) :- ( Atrial fibrilation ) </p>
+                                                                    <?php } elseif ($result['ecg'] == 5) { ?>
+                                                                        <p class="text-muted">ECG ( DONE ) : ( Other ) :- <?= $result['ecg_other']; ?> </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($result['echo_performed'] == 1) { ?>
+                                                                    <?php if ($result['echo'] == 1) { ?>
+                                                                        <p class="text-muted">ECHO ( DONE ) :- ( Echo:(Normal) ) </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['lv'] == 1) { ?>
+                                                                    <p class="text-muted">LV severely depressed ( YES )</p>
+                                                                <?php } elseif ($result['lv'] == 3) { ?>
+                                                                    <p class="text-muted">LV severely depressed ( DONE ) : ( Unseen ) </p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['mitral'] == 1) { ?>
+                                                                    <p class="text-muted">Mitral stenosis ( YES )</p>
+                                                                <?php } elseif ($result['mitral'] == 3) { ?>
+                                                                    <p class="text-muted">Mitral stenosis ( DONE ) : ( Unseen ) </p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['rv'] == 1) { ?>
+                                                                    <p class="text-muted">RV severely dilated ( YES )</p>
+                                                                <?php } elseif ($result['rv'] == 3) { ?>
+                                                                    <p class="text-muted">RV severely dilated : ( Unseen ) </p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['pericardial'] == 1) { ?>
+                                                                    <p class="text-muted">Pericardial effusion ( YES )</p>
+                                                                <?php } elseif ($result['pericardial'] == 3) { ?>
+                                                                    <p class="text-muted">Pericardial effusion : ( Unseen ) </p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['congenital_defect'] == 1) { ?>
+                                                                    <p class="text-muted">Congenital defect ( YES )</p>
+                                                                <?php } elseif ($result['congenital_defect'] == 3) { ?>
+                                                                    <p class="text-muted">Congenital defect : ( Unseen ) </p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['ivc'] == 1) { ?>
+                                                                    <p class="text-muted"> IVC dilated,collapse less than 50% ( YES )</p>
+                                                                <?php } elseif ($result['ivc'] == 3) { ?>
+                                                                    <p class="text-muted"> IVC dilated,collapse less than 50% ( Unseen )</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['thrombus'] == 1) { ?>
+                                                                    <p class="text-muted"> Thrombus ( YES )</p>
+                                                                <?php } elseif ($result['thrombus'] == 3) { ?>
+                                                                    <p class="text-muted"> Thrombus ( Unseen )</p>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($result['echo_other'] == 1) { ?>
+
+                                                                    <?php if ($result['echo_other2'] == 1) { ?>
+                                                                        <p class="text-muted">OTHER ECHO ( DONE ): <?= $result['echo_specify']; ?> ( Yes ) </p>
+                                                                    <?php } elseif ($result['echo_other2'] == 3) { ?>
+                                                                        <p class="text-muted">OTHER ECHO ( DONE ) : <?= $result['echo_specify']; ?> ( Unseen )</p>
+                                                                    <?php } ?>
+
+                                                                <?php } ?>
+
+
+                                                                <?php if ($result['scd_done'] == 1) { ?>
+                                                                    <?php if ($result['scd_test'] == 1) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- Presumptive diagnosis </p>
+                                                                    <?php } elseif ($result['scd_test'] == 2) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- Sickling Test</p>
+                                                                    <?php } elseif ($result['scd_test'] == 3) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- SS</p>
+                                                                    <?php } elseif ($result['scd_test'] == 4) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- SA</p>
+                                                                    <?php } elseif ($result['scd_test'] == 5) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- SBThal</p>
+                                                                    <?php } elseif ($result['scd_test'] == 6) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- SC</p>
+                                                                    <?php } elseif ($result['scd_test'] == 7) { ?>
+                                                                        <p class="text-muted">SCD Test ( DONE ) :- Other :- <?= $result['scd_test_other']; ?></p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($result['confirmatory_test'] == 1) { ?>
+                                                                    <?php if ($result['confirmatory_test_type'] == 1) { ?>
+                                                                        <p class="text-muted">Confirmatory Test: ( DONE ) :- Type :- HPLC </p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 2) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- HBE</p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 3) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- IEF</p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 4) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- Basique</p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 5) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- Acide</p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 6) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- HEMOTYPE SC</p>
+                                                                    <?php } elseif ($result['confirmatory_test_type'] == 7) { ?>
+                                                                        <p class="text-muted">Confirmatory Test ( DONE ) :- Type :- SICKLE SCAN</p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+
 
                                                             </div>
                                                             <div class="timeline-footer">
