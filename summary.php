@@ -314,7 +314,7 @@ if ($user->isLoggedIn()) {
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#historys" data-toggle="tab">Patient Hitory & Complication</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="#historys" data-toggle="tab">Hitory & Complication</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#symptoms" data-toggle="tab">Symptoms and Exams</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#vitals" data-toggle="tab">Vitals Signs</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#results" data-toggle="tab">Test and Results</a></li>
