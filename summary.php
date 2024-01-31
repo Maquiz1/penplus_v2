@@ -318,7 +318,7 @@ if ($user->isLoggedIn()) {
                                         <li class="nav-item"><a class="nav-link" href="#symptoms" data-toggle="tab">Symptoms and Exams</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#vitals" data-toggle="tab">Vitals Signs</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#results" data-toggle="tab">Test and Results</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline5" data-toggle="tab">Medications</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#medications" data-toggle="tab">Medications</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#timeline6" data-toggle="tab">Hospitalizations</a></li>
                                     </ul>
                                 </div>
@@ -1077,7 +1077,85 @@ if ($user->isLoggedIn()) {
                                             <?php } ?>
 
                                         </div>
-                                        <!-- /.tab-pane -->
+                                        <!-- /.tab-pane results-->
+
+                                        <div class="tab-pane" id="medications">
+                                            <?php
+                                            $x = 1;
+                                            $medications = $override->getNewsAsc('medication_treatments', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
+
+                                            foreach ($medications as $medication) { ?>
+                                                <!-- The timeline -->
+                                                <div class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-success">
+                                                            <?= $medication['visit_date']; ?>
+                                                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-envelope bg-primary"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time timeline-header"><i class="far fa-clock"></i> <?= $medication['visit_day']; ?></span>
+
+                                                            <h3 class="timeline-header"><a href="#">List of Patient's</a> Medications </h3>
+
+                                                            <div class="timeline-body">
+
+                                                                <table class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 10px">#</th>
+                                                                            <th>Medication name</th>
+                                                                            <th>Action</th>
+                                                                            <th>Dose</th>
+                                                                            <th style="width: 40px">Units</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><?= $x; ?> .</td>
+                                                                            <td><?= $medication['medication_type']; ?></td>
+                                                                            <?php if ($medication['medication_action'] == 1) { ?>
+                                                                                <td><span class="badge bg-primary">Continue </span></td>
+
+                                                                            <?php } elseif ($medication['medication_action'] == 2) { ?>
+                                                                                <td><span class="badge bg-success">Start </span></td>
+
+                                                                            <?php } elseif ($medication['medication_action'] == 3) { ?>
+                                                                                <td><span class="badge bg-danger">Stop </span></td>
+
+                                                                            <?php } elseif ($medication['medication_action'] == 4) { ?>
+                                                                                <td><span class="badge bg-warning">Not elgible </span></td>
+
+                                                                            <?php } ?>
+                                                                            <td><span class="badge bg-primary"><?= $medication['medication_dose']; ?> </span></td>
+                                                                            <td><span class="badge bg-primary"><?= $medication['medication_units']; ?> </span></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <!-- <a href="#" class="btn btn-primary btn-sm">Read more</a> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                                $x++;
+                                            } ?>
+
+                                        </div>
+                                        <!-- /.tab-pane results-->
                                     </div>
                                     <!-- /.tab-content -->
                                 </div><!-- /.card-body -->
