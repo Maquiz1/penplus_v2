@@ -170,7 +170,13 @@ if ($user->isLoggedIn()) {
                             <div class="card card-primary card-outline">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
-                                        <img class="profile-user-img img-fluid img-circle" src="dist/img/avatar5.png" alt="User profile picture">
+                                        <?php if ($profile['gender'] == 1) { ?>
+                                            <img class="profile-user-img img-fluid img-circle" src="dist/img/avatar5.png" alt="User profile picture">
+
+                                        <?php } elseif ($profile['gender'] == 2) { ?>
+                                            <img class="profile-user-img img-fluid img-circle" src="dist/img/avatar3.png" alt="User profile picture">
+
+                                        <?php } ?>
                                     </div>
 
                                     <h3 class="profile-username text-center">
@@ -596,7 +602,8 @@ if ($user->isLoggedIn()) {
                                             $x = 1;
                                             $symptoms = $override->getNews('symptoms', 'status', 1, 'patient_id', $_GET['cid']);
 
-                                            foreach ($symptoms as $symptom) { ?> <!-- The timeline -->
+                                            foreach ($symptoms as $symptom) { ?>
+                                                <!-- The timeline -->
                                                 <div class="timeline timeline-inverse">
                                                     <!-- timeline time label -->
                                                     <div class="time-label">
@@ -610,22 +617,228 @@ if ($user->isLoggedIn()) {
                                                         <i class="fas fa-envelope bg-primary"></i>
 
                                                         <div class="timeline-item">
-                                                            <span class="time"><i class="far fa-clock"></i> <?= $symptom['visit_day']; ?></span>
+                                                            <span class="time timeline-header"><i class="far fa-clock"></i> <?= $symptom['visit_day']; ?></span>
 
-                                                            <h3 class="timeline-header"><a href="#">Symptoms and Exams</a> sent you an email</h3>
+                                                            <h3 class="timeline-header"><a href="#">List of Patient's</a> Symptoms, & Exam</h3>
 
                                                             <div class="timeline-body">
-                                                                <?php if ($symptoms['chest_pain'] == 2) { ?>
+                                                                <?php if ($symptom['orthopnea'] == 1) { ?>
+                                                                    <p class="text-muted">Orthopnea</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['paroxysmal'] == 1) { ?>
+                                                                    <p class="text-muted">Paroxysmal nocturnal dyspnea</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['dyspnea']) { ?>
+                                                                    <?php if ($symptom['dyspnea'] == 1) { ?>
+                                                                        <p class="text-muted">Dyspnea on exertion: NYHA Classification :- ( I ) </p>
+                                                                    <?php } elseif ($symptom['dyspnea'] == 2) { ?>
+                                                                        <p class="text-muted">Dyspnea on exertion: NYHA Classification :- ( II ) </p>
+                                                                    <?php } elseif ($symptom['dyspnea'] == 3) { ?>
+                                                                        <p class="text-muted">Dyspnea on exertion: NYHA Classification :- ( III ) </p>
+                                                                    <?php } elseif ($symptom['dyspnea'] == 4) { ?>
+                                                                        <p class="text-muted">Dyspnea on exertion: NYHA Classification :- ( IV ) </p>
+                                                                    <?php } elseif ($symptom['dyspnea'] == 5) { ?>
+                                                                        <p class="text-muted">Dyspnea on exertion: NYHA Classification :- ( Cannot determine )</p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($symptom['cough'] == 1) { ?>
+                                                                    <p class="text-muted">Cough</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['thirst'] == 1) { ?>
+                                                                    <p class="text-muted">Increased thirst</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['urination'] == 1) { ?>
+                                                                    <p class="text-muted">Increased Urination</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['vision'] == 1) { ?>
+                                                                    <p class="text-muted">Vision Changes</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['vomiting'] == 1) { ?>
+                                                                    <p class="text-muted">Vomiting</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['weight_loss'] == 1) { ?>
+                                                                    <p class="text-muted">Weight Loss</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['breathing'] == 1) { ?>
+                                                                    <p class="text-muted">Difficulty Breathing</p>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($symptom['chest_pain'] == 1) { ?>
                                                                     <p class="text-muted">Chest Pain</p>
                                                                 <?php } ?>
-                                                                <?php if ($symptoms['chest_pain'] == 2) { ?>
-                                                                    <p class="text-muted">Chest Pain</p>
+
+                                                                <?php if ($symptom['abnorminal_pain'] == 1) { ?>
+                                                                    <p class="text-muted">Abnorminal Pain</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['headache'] == 1) { ?>
+                                                                    <p class="text-muted">Headache Pain</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['upper_arms'] == 1) { ?>
+                                                                    <p class="text-muted">Upper arms Pains</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['lower_arms'] == 1) { ?>
+                                                                    <p class="text-muted">Lower arms Pains</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['waist'] == 1) { ?>
+                                                                    <p class="text-muted">Waist Pains</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['joints'] == 1) { ?>
+                                                                    <p class="text-muted">Joints Pains</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['other_pain'] == 1) { ?>
+                                                                    <p class="text-muted">Other Pains</p>
+                                                                <?php } ?>
+
+
+
+                                                                <?php if ($symptom['edema']) { ?>
+                                                                    <?php if ($symptom['edema'] == 1) { ?>
+                                                                        <p class="text-muted">Edema :- ( None ) </p>
+                                                                    <?php } elseif ($symptom['edema'] == 2) { ?>
+                                                                        <p class="text-muted">Edema :- ( Trcae ) </p>
+                                                                    <?php } elseif ($symptom['edema'] == 3) { ?>
+                                                                        <p class="text-muted">Edema :- ( 1+ ) </p>
+                                                                    <?php } elseif ($symptom['edema'] == 4) { ?>
+                                                                        <p class="text-muted">Edema :- ( 2+ ) </p>
+                                                                    <?php } elseif ($symptom['edema'] == 5) { ?>
+                                                                        <p class="text-muted">Edema :- ( 3+ ) </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['lungs']) { ?>
+                                                                    <?php if ($symptom['lungs'] == 1) { ?>
+                                                                        <p class="text-muted">Lungs :- ( Clear ) </p>
+                                                                    <?php } elseif ($symptom['lungs'] == 2) { ?>
+                                                                        <p class="text-muted">Lungs :- ( Bibasilar ) </p>
+                                                                    <?php } elseif ($symptom['lungs'] == 3) { ?>
+                                                                        <p class="text-muted">Lungs :- ( Crackles ) </p>
+                                                                    <?php } elseif ($symptom['lungs'] == 4) { ?>
+                                                                        <p class="text-muted">Lungs :- ( Wheeze ) </p>
+                                                                    <?php } elseif ($symptom['lungs'] == 5) { ?>
+                                                                        <p class="text-muted">Lungs : ( Other ) :- <?= $symptom['lungs_other']; ?> </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($symptom['jvp']) { ?>
+                                                                    <?php if ($symptom['jvp'] == 1) { ?>
+                                                                        <p class="text-muted">JVP :- ( Eleveated ) </p>
+                                                                    <?php } elseif ($symptom['jvp'] == 2) { ?>
+                                                                        <p class="text-muted">JVP :- ( Normal ) </p>
+                                                                    <?php } elseif ($symptom['jvp'] == 3) { ?>
+                                                                        <p class="text-muted">JVP :- ( Unable to determine ) </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['volume']) { ?>
+                                                                    <?php if ($symptom['volume'] == 1) { ?>
+                                                                        <p class="text-muted">Volume status :-( Euvolemic ) </p>
+                                                                    <?php } elseif ($symptom['volume'] == 2) { ?>
+                                                                        <p class="text-muted">Volume status :-( Hyper ) </p>
+                                                                    <?php } elseif ($symptom['volume'] == 3) { ?>
+                                                                        <p class="text-muted">Volume status :-( Hypo ) </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['murmur']) { ?>
+                                                                    <?php if ($symptom['murmur'] == 1) { ?>
+                                                                        <p class="text-muted">Loud Murmur :-( Present ) </p>
+                                                                    <?php } elseif ($symptom['murmur'] == 2) { ?>
+                                                                        <p class="text-muted">Loud Murmur :-( Absent ) </p>
+                                                                    <?php } elseif ($symptom['murmur'] == 3) { ?>
+                                                                        <p class="text-muted">Loud Murmur :-( Unknown ) </p>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['foot_exam']) { ?>
+                                                                    <?php if ($symptom['foot_exam'] == 1) { ?>
+                                                                        <?php if ($symptom['foot_exam_finding'] == 1) { ?>
+                                                                            <p class="text-muted">Foot Exam :- ( YES ) : ( Normal ) </p>
+                                                                        <?php } elseif ($symptom['foot_exam_finding'] == 2) { ?>
+                                                                            <p class="text-muted">Foot Exam :- ( YES ) : ( Abnormal ) :- <?= $symptom['foot_exam_other']; ?> </p>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['fasting'] == 1) { ?>
+                                                                    <p class="text-muted">Fasting FS :- <?= $symptom['fasting']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['random_fs'] == 1) { ?>
+                                                                    <p class="text-muted">Random FS :- <?= $symptom['random_fs']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['hba1c'] == 1) { ?>
+                                                                    <p class="text-muted">HbA1C:( During enrollment ) :- <?= $symptom['hba1c']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['hypoglycemia_symptoms'] == 1) { ?>
+                                                                    <p class="text-muted">Symptoms of hypoglycemia</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['hypoglycemia_severe'] == 1) { ?>
+                                                                    <p class="text-muted">Severe hypoglycemia in last month ( YES ): how many episodes :- <?= $symptom['hypoglycemia__number']; ?></p>
+                                                                <?php } ?>
+
+
+                                                                <?php if ($symptom['malnutrition'] == 1) { ?>
+                                                                    <p class="text-muted">Malnutrition</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['pallor'] == 1) { ?>
+                                                                    <p class="text-muted">Pallor</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['jaundice'] == 1) { ?>
+                                                                    <p class="text-muted">Jaundice</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['splenomegaly'] == 1) { ?>
+                                                                    <p class="text-muted">Splenomegaly</p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['anemia'] == 1) { ?>
+                                                                    <p class="text-muted">Anaemia</p>
+                                                                <?php } ?>
+
+
+
+                                                                <?php if ($symptom['hb'] == 1) { ?>
+                                                                    <p class="text-muted">Hb: :- <?= $symptom['hb']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['wbc'] == 1) { ?>
+                                                                    <p class="text-muted">WBC: :- <?= $symptom['wbc']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['plt'] == 1) { ?>
+                                                                    <p class="text-muted">Plt: :- <?= $symptom['plt']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($symptom['labs_other'] == 1) { ?>
+                                                                    <p class="text-muted">Other: :- <?= $symptom['labs_other']; ?></p>
                                                                 <?php } ?>
 
                                                             </div>
                                                             <div class="timeline-footer">
-                                                                <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                                <!-- <a href="#" class="btn btn-primary btn-sm">Read more</a> -->
                                                             </div>
                                                         </div>
                                                     </div>
