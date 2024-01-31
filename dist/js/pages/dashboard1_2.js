@@ -22,13 +22,11 @@ $(function () {
     dataType: "json",
     success: function (data) {
       createChart(data);
-      console.log(data);
     },
     error: function (error) {
       console.error("Error fetching data:", error);
     },
   });
-
   // });
 
   // $(document).on("click", ".update", function () {
@@ -177,40 +175,9 @@ $(function () {
   });
 
   function createChart(data) {
-    // console.log(data);
-
-    // var ctx = document.getElementById("myChart").getContext("2d");
-    var datasets = [];
-
-    // Iterate through the data and create datasets for each site
-    for (var site in data) {
-      var siteData = data[site];
-
-      console.log(siteData);
-      datasets.push({
-        // label: site,
-        // data: siteData.map((item) => item.count_data),
-        // borderColor: getRandomColor(),
-        // borderWidth: 2,
-        // fill: false,
-
-        label: site,
-        backgroundColor: "rgba(60,141,188,0.9)",
-        // borderColor: "rgba(60,141,188,0.8)",
-        borderColor: getRandomColor(),
-        pointRadius: false,
-        pointColor: "#3b8bba",
-        pointStrokeColor: "rgba(60,141,188,1)",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(60,141,188,1)",
-        data: siteData.map((item) => item.count_data),
-      });
-    }
-
     var date = new Date();
     var current_date =
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
     /* Chart.js Charts */
     // Sales chart
     var salesChartCanvas = document
@@ -219,36 +186,31 @@ $(function () {
     // $('#revenue-chart').get(0).getContext('2d');
 
     var salesChartData = {
-      // labels: data.map((obj) => obj.monthname),
-      // labels: siteData.map((item) => monthNames[item.month - 1]),
-      // datasets: [
-      //   {
-      //     label: data.map((obj) => obj.site_id == 1),
-      //     backgroundColor: "rgba(60,141,188,0.9)",
-      //     borderColor: "rgba(60,141,188,0.8)",
-      //     pointRadius: false,
-      //     pointColor: "#3b8bba",
-      //     pointStrokeColor: "rgba(60,141,188,1)",
-      //     pointHighlightFill: "#fff",
-      //     pointHighlightStroke: "rgba(60,141,188,1)",
-      //     data: data.map((obj) => obj.amount),
-      //   },
-
-      labels: siteData.map((item) => monthNames[item.month - 1]),
-      datasets: datasets,
-
-      // {
-      //   label: data.map((obj) => obj.site_id == 2),
-      //   backgroundColor: "rgba(210, 214, 222, 1)",
-      //   borderColor: "rgba(210, 214, 222, 1)",
-      //   pointRadius: false,
-      //   pointColor: "rgba(210, 214, 222, 1)",
-      //   pointStrokeColor: "#c1c7d1",
-      //   pointHighlightFill: "#fff",
-      //   pointHighlightStroke: "rgba(220,220,220,1)",
-      //   data: data.map((obj) => obj.amount),
-      // },
-      // ],
+      labels: data.map((obj) => obj.monthname),
+      datasets: [
+        {
+          label: [],
+          backgroundColor: "rgba(60,141,188,0.9)",
+          borderColor: "rgba(60,141,188,0.8)",
+          pointRadius: false,
+          pointColor: "#3b8bba",
+          pointStrokeColor: "rgba(60,141,188,1)",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(60,141,188,1)",
+          data: data.map((obj) => obj.amount),
+        },
+        {
+          label: [],
+          backgroundColor: "rgba(60,141,188,0.9)",
+          borderColor: "rgba(60,141,188,0.8)",
+          pointRadius: false,
+          pointColor: "#3b8bba",
+          pointStrokeColor: "rgba(60,141,188,1)",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(60,141,188,1)",
+          data: data.map((obj) => obj.amount),
+        }
+      ],
     };
 
     var salesChartOptions = {
@@ -283,32 +245,6 @@ $(function () {
       data: salesChartData,
       options: salesChartOptions,
     });
-
-    // Function to generate random color for chart lines
-    function getRandomColor() {
-      var letters = "0123456789ABCDEF";
-      var color = "#";
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-
-    // Array to map month numbers to month names
-    var monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
 
     // Donut Chart
     var pieChartCanvas = $("#sales-chart-canvas1").get(0).getContext("2d");

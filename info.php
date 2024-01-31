@@ -1139,6 +1139,8 @@ if ($user->isLoggedIn()) {
                                                     <th>Type</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
+                                                    <th>Summary</th>
+
                                                     <?php
                                                     if ($_GET['status'] == 1) { ?>
                                                         <th>Screening / Enrollments / Forms</th>
@@ -1336,6 +1338,15 @@ if ($user->isLoggedIn()) {
                                                     } ?>
                                                     </td>
 
+                                                    <td>
+                                                        <?php if ($_GET['status'] == 3) { ?>
+                                                            <?php if ($enrollment == 1) { ?>
+                                                                <a href="summary.php?cid=<?= $client['id'] ?>" role="button" class="btn btn-primary">Patient Summary</a>
+
+                                                        <?php }
+                                                        } ?>
+                                                    </td>
+
                                                     </tr>
 
                                                     <div class="modal fade" id="addScreening<?= $client['id'] ?>">
@@ -1525,6 +1536,7 @@ if ($user->isLoggedIn()) {
                                                     <th>Type</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
+                                                    <th>Summary</th>
                                                     <?php
                                                     if ($_GET['status'] == 1) { ?>
                                                         <th>Screening / Enrollments / Forms</th>
