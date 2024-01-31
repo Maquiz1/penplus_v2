@@ -314,10 +314,10 @@ if ($user->isLoggedIn()) {
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#history" data-toggle="tab">Patient Hitory & Complication</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="#historys" data-toggle="tab">Patient Hitory & Complication</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#symptoms" data-toggle="tab">Symptoms and Exams</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline3" data-toggle="tab">Test and Results</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline4" data-toggle="tab">Vitals</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#vitals" data-toggle="tab">Vitals Signs</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#results" data-toggle="tab">Test and Results</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#timeline5" data-toggle="tab">Medications</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#timeline6" data-toggle="tab">Hospitalizations</a></li>
                                     </ul>
@@ -325,10 +325,10 @@ if ($user->isLoggedIn()) {
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="tab-content">
-                                        <div class="active tab-pane" id="history">
+                                        <div class="active tab-pane" id="historys">
                                             <?php
                                             $x = 1;
-                                            $historys = $override->getNews('history', 'status', 1, 'patient_id', $_GET['cid']);
+                                            $historys = $override->getNewsAsc('history', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
 
                                             foreach ($historys as $history) { ?>
                                                 <!-- The timeline -->
@@ -600,7 +600,7 @@ if ($user->isLoggedIn()) {
                                         <div class="tab-pane" id="symptoms">
                                             <?php
                                             $x = 1;
-                                            $symptoms = $override->getNews('symptoms', 'status', 1, 'patient_id', $_GET['cid']);
+                                            $symptoms = $override->getNewsAsc('symptoms', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
 
                                             foreach ($symptoms as $symptom) { ?>
                                                 <!-- The timeline -->
@@ -834,6 +834,76 @@ if ($user->isLoggedIn()) {
 
                                                                 <?php if ($symptom['labs_other'] == 1) { ?>
                                                                     <p class="text-muted">Other: :- <?= $symptom['labs_other']; ?></p>
+                                                                <?php } ?>
+
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <!-- <a href="#" class="btn btn-primary btn-sm">Read more</a> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                        <div class="tab-pane" id="vitals">
+                                            <?php
+                                            $x = 1;
+                                            $vitals = $override->getNewsAsc('vital', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
+
+                                            foreach ($vitals as $vital) { ?>
+                                                <!-- The timeline -->
+                                                <div class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-success">
+                                                            <?= $vital['visit_date']; ?>
+                                                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-envelope bg-primary"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time timeline-header"><i class="far fa-clock"></i> <?= $vital['visit_day']; ?></span>
+
+                                                            <h3 class="timeline-header"><a href="#">List of Patient's</a> Vital Signs</h3>
+
+                                                            <div class="timeline-body">
+
+                                                                <?php if ($vital['height']) { ?>
+                                                                    <p class="text-muted">Ht (cm) :- <?= $vital['height']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['weight']) { ?>
+                                                                    <p class="text-muted">Wt (kg) :- <?= $vital['weight']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['bmi']) { ?>
+                                                                    <p class="text-muted">BMI ( kg/m2 ) :- <?= $vital['bmi']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['muac']) { ?>
+                                                                    <p class="text-muted">MUAC (cm) :- <?= $vital['muac']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['systolic']) { ?>
+                                                                    <p class="text-muted">Systolic :- <?= $vital['systolic']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['dystolic']) { ?>
+                                                                    <p class="text-muted">Dystolic :- <?= $vital['dystolic']; ?></p>
+                                                                <?php } ?>
+
+                                                                <?php if ($vital['pr']) { ?>
+                                                                    <p class="text-muted">PR :- <?= $vital['pr']; ?></p>
                                                                 <?php } ?>
 
                                                             </div>
