@@ -319,7 +319,7 @@ if ($user->isLoggedIn()) {
                                         <li class="nav-item"><a class="nav-link" href="#vitals" data-toggle="tab">Vitals Signs</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#results" data-toggle="tab">Test and Results</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#medications" data-toggle="tab">Medications</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#timeline6" data-toggle="tab">Hospitalizations</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#hospitalizations" data-toggle="tab">Hospitalizations</a></li>
                                     </ul>
                                 </div>
                                 <!-- /.card-header -->
@@ -1082,6 +1082,7 @@ if ($user->isLoggedIn()) {
                                         <div class="tab-pane" id="medications">
                                             <?php
                                             $x = 1;
+                                            // $medications = $override->getNewsAsc1('medication_treatments', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no', $x, 'seq_no');
                                             $medications = $override->getNewsAsc('medication_treatments', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
 
                                             foreach ($medications as $medication) { ?>
@@ -1155,7 +1156,72 @@ if ($user->isLoggedIn()) {
                                             } ?>
 
                                         </div>
-                                        <!-- /.tab-pane results-->
+                                        <!-- /.tab-pane medications-->
+
+                                        <div class="tab-pane" id="hospitalizations">
+                                            <?php
+                                            $x = 1;
+                                            // $medications = $override->getNewsAsc1('medication_treatments', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no', $x, 'seq_no');
+                                            $hospitalizations = $override->getNewsAsc('hospitalization_table', 'status', 1, 'patient_id', $_GET['cid'], 'seq_no');
+
+                                            foreach ($hospitalizations as $hospitalization) { ?>
+                                                <!-- The timeline -->
+                                                <div class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <div class="time-label">
+                                                        <span class="bg-success">
+                                                            <?= $hospitalization['visit_date']; ?>
+                                                        </span>
+                                                    </div>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <div>
+                                                        <i class="fas fa-envelope bg-primary"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time timeline-header"><i class="far fa-clock"></i> <?= $hospitalization['visit_day']; ?></span>
+
+                                                            <h3 class="timeline-header"><a href="#">List of Patient's</a> Hospitalizations </h3>
+
+                                                            <div class="timeline-body">
+
+                                                                <table class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 10px">#</th>
+                                                                            <th>Admission Date</th>
+                                                                            <th>Admission Reason</th>
+                                                                            <th>Discharge Diagnosis</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><?= $x; ?> .</td>
+                                                                            <td><?= $hospitalization['admission_date']; ?></td>
+                                                                            <td><?= $hospitalization['admission_reason']; ?> </td>
+                                                                            <td><?= $hospitalization['discharge_diagnosis']; ?> </td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <!-- <a href="#" class="btn btn-primary btn-sm">Read more</a> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END timeline item -->
+
+                                                    <div>
+                                                        <i class="far fa-clock bg-gray"></i>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                                $x++;
+                                            } ?>
+
+                                        </div>
+                                        <!-- /.tab-pane hospitalization-->
                                     </div>
                                     <!-- /.tab-content -->
                                 </div><!-- /.card-body -->

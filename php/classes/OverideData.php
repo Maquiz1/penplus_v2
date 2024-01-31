@@ -122,6 +122,13 @@ class OverideData
         return $result;
     }
 
+    public function getNewsAsc1($table, $where, $id, $where2, $id2, $where3, $id3, $id4)
+    {
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$id' AND $where2 = '$id2' AND $where3 = '$id3' ORDER BY $id4");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function get2($table, $where, $id, $where2, $id2)
     {
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$id' AND $where2 = '$id2'");
