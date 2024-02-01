@@ -166,9 +166,15 @@ if ($user->isLoggedIn()) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index1.php" class="nav-link active">
+                            <a href="add.php?id=5" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Add New</p>
+                                <p>Add New Medication</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="add.php?id=6" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New Batch</p>
                             </a>
                         </li>
                         <li class="nav-item">
