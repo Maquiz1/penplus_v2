@@ -4784,7 +4784,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>Stroke / TIA</label>
-                                                                <select name="stroke_tia" id="stroke_tia" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('stroke_tia','stroke_tia_date')">
+                                                                <select name="stroke_tia" id="stroke_tia" class="form-control" style="width: 100%;">
                                                                     <option value="<?= $history['stroke_tia'] ?>"><?php if ($history) {
                                                                                                                         if ($history['stroke_tia'] == 1) {
                                                                                                                             echo 'Yes';
@@ -4882,7 +4882,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="neuropathy_date" class="form-control" id="neuropathy_date" value="<?php if ($history['neuropathy_date']) {
                                                                                                                                                                 print_r($history['neuropathy_date']);
                                                                                                                                                             }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -4920,7 +4919,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="sexual_dysfunction_date" class="form-control" id="sexual_dysfunction_date" value="<?php if ($history['sexual_dysfunction_date']) {
                                                                                                                                                                                 print_r($history['sexual_dysfunction_date']);
                                                                                                                                                                             }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
