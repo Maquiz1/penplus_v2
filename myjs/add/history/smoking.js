@@ -3,7 +3,7 @@ const packs = document.getElementById("packs");
 const active_smoker = document.getElementById("active_smoker");
 
 function showElement() {
-  if (smoking.value === "2") {
+  if (smoking.value === "1") {
     packs.style.display = "block";
     active_smoker.style.display = "block";
   } else {

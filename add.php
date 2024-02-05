@@ -4703,7 +4703,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="cardiovascular_date" class="form-control" value="<?php if ($history['cardiovascular_date']) {
                                                                                                                                                 print_r($history['cardiovascular_date']);
                                                                                                                                             }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -4737,7 +4736,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="retinopathy_date" class="form-control" id="retinopathy_date" value="<?php if ($history['retinopathy_date']) {
                                                                                                                                                                     print_r($history['retinopathy_date']);
                                                                                                                                                                 }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -4778,7 +4776,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="renal_date" class="form-control" value="<?php if ($history['renal_date']) {
                                                                                                                                         print_r($history['renal_date']);
                                                                                                                                     }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -4804,7 +4801,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-3 hidden" id="stroke_tia_date">
+                                                    <div class="col-sm-3" id="stroke_tia_date">
                                                         <div class="row-form clearfix">
                                                             <!-- select -->
                                                             <div class="form-group">
@@ -4812,7 +4809,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="stroke_tia_date" class="form-control" value="<?php if ($history['stroke_tia_date']) {
                                                                                                                                             print_r($history['stroke_tia_date']);
                                                                                                                                         }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
