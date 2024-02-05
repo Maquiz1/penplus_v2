@@ -16,7 +16,7 @@ function showElement() {
 const cardiovascularValue = localStorage.getItem("selectedValue");
 
 if (cardiovascularValue) {
-  new_referrals.value = cardiovascularValue;
+  cardiovascular.value = cardiovascularValue;
 }
 
 // Show element if Option 2 is selected

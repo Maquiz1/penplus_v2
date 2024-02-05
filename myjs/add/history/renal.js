@@ -2,7 +2,7 @@ const renal = document.getElementById("renal");
 const renal_date = document.getElementById("renal_date");
 
 function showElement() {
-  if (cardiovascular.value === "1") {
+  if (renal.value === "1") {
     renal_date.style.display = "block";
   } else {
     renal_date.style.display = "none";
