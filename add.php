@@ -4856,7 +4856,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>Neuropathy</label>
-                                                                <select name="neuropathy" id="neuropathy" class="form-control" style="width: 100%;" >
+                                                                <select name="neuropathy" id="neuropathy" class="form-control" style="width: 100%;">
                                                                     <option value="<?= $history['neuropathy'] ?>"><?php if ($history) {
                                                                                                                         if ($history['neuropathy'] == 1) {
                                                                                                                             echo 'Yes';
@@ -5124,7 +5124,7 @@ if ($user->isLoggedIn()) {
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>HIV</label>
-                                                            <select name="hiv" id="hiv" style="width: 100%;" class="form-control" onchange="check2QuestionValue2('hiv','hiv_test','art1')">
+                                                            <select name="hiv" id="hiv" style="width: 100%;" class="form-control">
                                                                 <option value="<?= $history['hiv'] ?>"><?php if ($history) {
                                                                                                             if ($history['hiv'] == 1) {
                                                                                                                 echo 'R';
@@ -5149,9 +5149,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Date Of Test</label>
-                                                            <input type="number" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
-                                                                                                                                print_r($history['hiv_test']);
-                                                                                                                            }  ?>" />
+                                                            <input type="date" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
+                                                                                                                                    print_r($history['hiv_test']);
+                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5160,7 +5160,7 @@ if ($user->isLoggedIn()) {
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>On ART ?</label>
-                                                            <select name="art" id="art" style="width: 100%;" class="form-control" onchange="checkQuestionValue1('art','art_date')">
+                                                            <select name="art" id="art" style="width: 100%;" class="form-control">
                                                                 <option value="<?= $history['art'] ?>"><?php if ($history) {
                                                                                                             if ($history['art'] == 1) {
                                                                                                                 echo 'Yes';
@@ -5228,9 +5228,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Year TB tested</label>
-                                                            <input type="number" name="tb_year" class="form-control" value="<?php if ($history['tb_year']) {
-                                                                                                                                print_r($history['tb_year']);
-                                                                                                                            }  ?>" />
+                                                            <input type="number" name="tb_year" min="1970" max="2024" class="form-control" value="<?php if ($history['tb_year']) {
+                                                                                                                                                    print_r($history['tb_year']);
+                                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5266,9 +5266,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Number of pack years</label>
-                                                            <input type="text" name="packs" class="form-control" value="<?php if ($history['packs']) {
-                                                                                                                            print_r($history['packs']);
-                                                                                                                        }  ?>" />
+                                                            <input type="text" name="packs" min="0" max="100000" class="form-control" value="<?php if ($history['packs']) {
+                                                                                                                                                    print_r($history['packs']);
+                                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5463,9 +5463,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Quantity (number of bottle)</label>
-                                                            <input type="number" name="quantity" class="form-control" value="<?php if ($history['quantity']) {
-                                                                                                                                print_r($history['quantity']);
-                                                                                                                            }  ?>" />
+                                                            <input type="number" name="quantity" min="0" max="10000" class="form-control" value="<?php if ($history['quantity']) {
+                                                                                                                                                        print_r($history['quantity']);
+                                                                                                                                                    }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5677,8 +5677,8 @@ if ($user->isLoggedIn()) {
                                                             <div class="form-group">
                                                                 <label>How many siblings do you have?</label>
                                                                 <input type="number" name="siblings" class="form-control" value="<?php if ($history['siblings']) {
-                                                                                                                                    print_r($history['siblings']);
-                                                                                                                                }  ?>" />
+                                                                                                                                        print_r($history['siblings']);
+                                                                                                                                    }  ?>" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -6707,6 +6707,7 @@ if ($user->isLoggedIn()) {
                     </div><!-- /.container-fluid -->
                 </section>
                 <!-- /.content -->
+
             </div>
             <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 15) { ?>
@@ -6901,6 +6902,7 @@ if ($user->isLoggedIn()) {
                     </div><!-- /.container-fluid -->
                 </section>
                 <!-- /.content -->
+                
             </div>
             <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 20) { ?>
