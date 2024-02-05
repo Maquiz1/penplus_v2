@@ -4801,7 +4801,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-3" id="stroke_tia_date">
+                                                    <div class="col-sm-3" id="stroke_tia_date">b 
                                                         <div class="row-form clearfix">
                                                             <!-- select -->
                                                             <div class="form-group">
@@ -5150,10 +5150,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Date Of Test</label>
-                                                            <input type="text" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
+                                                            <input type="date" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
                                                                                                                                 print_r($history['hiv_test']);
                                                                                                                             }  ?>" />
-                                                            <span>Example: 2010-12-01</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5185,10 +5184,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>ART Start Date</label>
-                                                            <input type="text" name="art_date" class="form-control" value="<?php if ($history['art_date']) {
+                                                            <input type="date" name="art_date" class="form-control" value="<?php if ($history['art_date']) {
                                                                                                                                 print_r($history['art_date']);
                                                                                                                             }  ?>" />
-                                                            <span>Example: 2010-12-01</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -5231,10 +5229,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Year TB tested</label>
-                                                            <input type="text" name="tb_year" class="form-control" value="<?php if ($history['tb_year']) {
+                                                            <input type="date" name="tb_year" class="form-control" value="<?php if ($history['tb_year']) {
                                                                                                                                 print_r($history['tb_year']);
                                                                                                                             }  ?>" />
-                                                            <span>Example: 2010-12-01</span>
                                                         </div>
                                                     </div>
                                                 </div>
