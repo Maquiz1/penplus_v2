@@ -193,39 +193,7 @@ if ($user->isLoggedIn()) {
                   </div>
                 </div><!-- /.card-body -->
               </div>
-              <!-- /.card -->
-
-              <!-- solid sales graph -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-chart-pie mr-1"></i>
-                    TOTAL ENROLLMENT as of <?= date('Y-m-d') ?>
-                  </h3>
-                  <div class="card-tools">
-                    <ul class="nav nav-pills ml-auto">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#revenue-chart1" data-toggle="tab">Bar</a>
-                      </li>
-                      <!-- <li class="nav-item">
-                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                      </li> -->
-                    </ul>
-                  </div>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas1" height="300" style="height: 300px;"></canvas>
-                    </div>
-                    <div class="chart tab-pane" id="sales-chart1" style="position: relative; height: 300px;">
-                      <canvas id="sales-chart-canvas1" height="300" style="height: 300px;"></canvas>
-                    </div>
-                  </div>
-                </div><!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+              <!-- /.card -->             
 
               <!-- Map card -->
               <div class="card">
@@ -263,206 +231,67 @@ if ($user->isLoggedIn()) {
 
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-6 connectedSortable">
-              <!-- TO DO List -->
+              <!-- solid sales graph -->
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">
-                    <i class="ion ion-clipboard mr-1"></i>
-                    List of Medications
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    TOTAL ENROLLMENT as of <?= date('Y-m-d') ?>
                   </h3>
-
                   <div class="card-tools">
-                    <ul class="pagination pagination-sm">
-                      <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                      <li class="page-item"><a href="#" class="page-link">1</a></li>
-                      <li class="page-item"><a href="#" class="page-link">2</a></li>
-                      <li class="page-item"><a href="#" class="page-link">3</a></li>
-                      <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                    <ul class="nav nav-pills ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#revenue-chart1" data-toggle="tab">Bar</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                      </li> -->
                     </ul>
                   </div>
-                </div>
-                <!-- /.card-header -->
+                </div><!-- /.card-header -->
                 <div class="card-body">
-                  <ul class="todo-list" data-widget="todo-list">
-                    <?php
-                    $x = 1;
-                    foreach ($override->get('medications', 'status', 1) as $medication) { ?>
-                      <li>
-                        <!-- drag handle -->
-                        <span class="handle">
-                          <i class="fas fa-ellipsis-v"></i>
-                          <i class="fas fa-ellipsis-v"></i>
-                        </span>
-                        <!-- checkbox -->
-                        <div class="icheck-primary d-inline ml-2">
-                          <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                          <label for="todoCheck1"></label>
-                        </div>
-                        <!-- todo text -->
-                        <span class="text"><?= $medication['name'] ?></span>
-                        <!-- Emphasis label -->
-                        <small class="badge badge-success"><i class="far fa-clock"></i> <?= $medication['amount'] ?></small>
-                        <!-- General tools such as edit or delete-->
-                        <div class="tools">
-                          <i class="fas fa-edit"></i>
-                          <i class="fas fa-trash-o"></i>
-                        </div>
-                      </li>
-                    <?php } ?>
-                  </ul>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#medication_modal<?= $medication['id'] ?>"><i class="fas fa-plus"></i> Add New Medication</button>
-                </div>
-                <div class="modal fade" id="medication_modal<?= $medication['id'] ?>">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Medication Form</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter email" id="name" name="name" value="<?php if ($medication['name']) {
-                                                                                                                                  print_r($medication['name']);
-                                                                                                                                }  ?>" required />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Batch / Serial </label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Amount</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Form</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Expire Date </label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Category</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <!-- select -->
-                              <div class="form-group">
-                                <label>Cardiac:</label>
-                                <select name="cardiac" style="width: 100%;" required>
-                                  <option value="<?= $medication['cardiac'] ?>"><?php if ($medication) {
-                                                                                  if ($medication['cardiac'] == 1) {
-                                                                                    echo 'Yes';
-                                                                                  } elseif ($medication['cardiac'] == 2) {
-                                                                                    echo 'No';
-                                                                                  }
-                                                                                } else {
-                                                                                  echo 'Select';
-                                                                                } ?>
-                                  </option>
-                                  <option value="1">Yes</option>
-                                  <option value="2">No</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <!-- select -->
-                              <div class="form-group">
-                                <label>Diabetes:</label>
-                                <select name="diabetes" style="width: 100%;" required>
-                                  <option value="<?= $medication['diabetes'] ?>"><?php if ($medication) {
-                                                                                    if ($medication['diabetes'] == 1) {
-                                                                                      echo 'Yes';
-                                                                                    } elseif ($medication['diabetes'] == 2) {
-                                                                                      echo 'No';
-                                                                                    }
-                                                                                  } else {
-                                                                                    echo 'Select';
-                                                                                  } ?>
-                                  </option>
-                                  <option value="1">Yes</option>
-                                  <option value="2">No</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="row-form clearfix">
-                              <!-- select -->
-                              <div class="form-group">
-                                <label>Sickle Cell:</label>
-                                <select name="sickle_cell" style="width: 100%;" required>
-                                  <option value="<?= $medication['sickle_cell'] ?>"><?php if ($medication) {
-                                                                                      if ($medication['sickle_cell'] == 1) {
-                                                                                        echo 'Yes';
-                                                                                      } elseif ($medication['sickle_cell'] == 2) {
-                                                                                        echo 'No';
-                                                                                      }
-                                                                                    } else {
-                                                                                      echo 'Select';
-                                                                                    } ?>
-                                  </option>
-                                  <option value="1">Yes</option>
-                                  <option value="2">No</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="hidden" name="id" value="<?= $medication['id'] ?>">
-                        <input type="hidden" name="action" value="edit">
-                        <input type="submit" name="add_medications" value="Submit" class="btn btn-default">
-                      </div>
+                  <div class="tab-content p-0">
+                    <!-- Morris chart - Sales -->
+                    <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: 300px;">
+                      <canvas id="revenue-chart-canvas1" height="300" style="height: 300px;"></canvas>
+                    </div>
+                    <div class="chart tab-pane" id="sales-chart1" style="position: relative; height: 300px;">
+                      <canvas id="sales-chart-canvas1" height="300" style="height: 300px;"></canvas>
                     </div>
                   </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+              <!-- solid sales graph -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    TOTAL ENROLLMENT as of <?= date('Y-m-d') ?>
+                  </h3>
+                  <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#revenue-chart1" data-toggle="tab">Bar</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content p-0">
+                    <!-- Morris chart - Sales -->
+                    <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: 300px;">
+                      <canvas id="revenue-chart-canvas1" height="300" style="height: 300px;"></canvas>
+                    </div>
+                    <div class="chart tab-pane" id="sales-chart1" style="position: relative; height: 300px;">
+                      <canvas id="sales-chart-canvas1" height="300" style="height: 300px;"></canvas>
+                    </div>
+                  </div>
+                </div><!-- /.card-body -->
               </div>
               <!-- /.card -->
 

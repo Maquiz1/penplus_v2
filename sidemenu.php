@@ -166,13 +166,13 @@ if ($user->isLoggedIn()) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="add.php?id=5" class="nav-link">
+                            <a href="add.php?id=5&btn=Add" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add New Medication</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="add.php?id=6" class="nav-link">
+                            <a href="add.php?id=6&btn=Add" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add New Batch</p>
                             </a>
@@ -185,6 +185,15 @@ if ($user->isLoggedIn()) {
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="info.php?id=10" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Batch / Serial list
+                                    <span class="badge badge-info right"><?= $override->getCount('batch', 'status', 1) ?></span>
+                                </p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="info.php?id=8" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

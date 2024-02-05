@@ -790,7 +790,19 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        } elseif (Input::get('delete_medication')) {
+            $user->updateRecord('medications', array(
+                'status' => 0,
+            ), Input::get('id'));
+            $successMessage = Input::get('name') . ' - ' . 'Medications Deleted Successful';
+        } elseif (Input::get('delete_batch')) {
+            $user->updateRecord('batch', array(
+                'status' => 0,
+            ), Input::get('id'));
+            $successMessage = Input::get('name') . ' - ' . 'Medications Deleted Successful';
         }
+
+
 
         if ($_GET['id'] == 6) {
             $data = null;
@@ -909,19 +921,19 @@ if ($user->isLoggedIn()) {
         <?php include 'sidemenu.php'; ?>
 
         <?php if ($errorMessage) { ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center">
                 <h4>Error!</h4>
                 <?= $errorMessage ?>
             </div>
         <?php } elseif ($pageError) { ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger text-center">
                 <h4>Error!</h4>
                 <?php foreach ($pageError as $error) {
                     echo $error . ' , ';
                 } ?>
             </div>
         <?php } elseif ($successMessage) { ?>
-            <div class="alert alert-success">
+            <div class="alert alert-success text-center">
                 <h4>Success!</h4>
                 <?= $successMessage ?>
             </div>
@@ -2625,8 +2637,8 @@ if ($user->isLoggedIn()) {
                                                 <?php $x = 1;
                                                 foreach ($override->get('medications', 'status', 1) as $value) {
 
-                                                    $batch_sum = $override->getSumD2('batch', 'amount', 'status', 1, 'generic_id', $value['id'])[0]['SUM(amount)'];
-                                                    $forms = $override->get('forms', 'status', 1, 'id', $value['forms'])[0];
+                                                    $batch_sum = $override->getSumD2('batch', 'amount', 'status', 1, 'medication_id', $value['id'])[0]['SUM(amount)'];
+                                                    $forms = $override->getNewsAsc0('forms', 'status', 1, 'id', $value['forms'])[0];
                                                     if ($batch_sum) {
                                                         $batch_sum = $batch_sum;
                                                     } elseif ($visit['status'] == 1) {
@@ -2640,16 +2652,43 @@ if ($user->isLoggedIn()) {
                                                         <td> <?= $forms['name'] ?></td>
                                                         <td>
                                                             <?php if ($value['expire_date'] > date('Y-m-d')) { ?>
-                                                                <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-success" data-toggle="modal">Valid</a>
+                                                                <a href="#editVisit<?= $value['id'] ?>" role="button" class="btn btn-success" data-toggle="modal">Valid</a>
                                                             <?php } elseif ($visit['status'] == 0) { ?>
-                                                                <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">Expired</a>
+                                                                <a href="#editVisit<?= $value['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">Expired</a>
                                                             <?php } ?>
                                                         </td>
                                                         <td>
-                                                            <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-info" data-toggle="modal">Update</a>
-                                                            <a href="info.php?id=9&generic_id=<?= $value['id'] ?>" role="button" class="btn btn-success">View</a>
+                                                            <a href="add.php?id=5&medication_id=<?= $value['id'] ?>&forms=<?= $value['forms'] ?>&use_group=<?= $value['use_group'] ?>&maintainance=<?= $value['maintainance'] ?>&btn=Update" role="button" class="btn btn-info">Update</a>
+                                                            <a href="info.php?id=9&medication_id=<?= $value['id'] ?>&forms=<?= $value['forms'] ?>&use_group=<?= $value['use_group'] ?>&maintainance=<?= $value['maintainance'] ?>&btn=Update" role="button" class="btn btn-success">View</a>
+                                                            <a href="#delete_medication<?= $value['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
                                                         </td>
                                                     </tr>
+                                                    <div class="modal fade" id="delete_medication<?= $value['id'] ?>">
+                                                        <div class="modal-dialog">
+                                                            <form method="post">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Delete Medication</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p class="text-muted text-center">Are you sure yoy want to delete this medication ?</p>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <input type="hidden" name="id" value="<?= $value['id'] ?>">
+                                                                        <input type="hidden" name="name" value="<?= $value['name'] ?>">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                                        <input type="submit" name="delete_medication" class="btn btn-danger" value="Yes, Delete">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.modal-content -->
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
                                                 <?php $x++;
                                                 } ?>
                                             </tbody>
@@ -2757,9 +2796,9 @@ if ($user->isLoggedIn()) {
                                             </thead>
                                             <tbody>
                                                 <?php $x = 1;
-                                                foreach ($override->getNews('batch', 'status', 1, 'generic_id', $_GET['generic_id']) as $value) {
+                                                foreach ($override->getNews('batch', 'status', 1, 'medication_id', $_GET['medication_id']) as $value) {
 
-                                                    $batch_sum = $override->getSumD2('batch', 'amount', 'status', 1, 'generic_id', $value['id'])[0]['SUM(amount)'];
+                                                    $batch_sum = $override->getSumD2('batch', 'amount', 'status', 1, 'medication_id', $value['id'])[0]['SUM(amount)'];
                                                     $forms = $override->get('forms', 'status', 1, 'id', $value['forms'])[0];
                                                     if ($batch_sum) {
                                                         $batch_sum = $batch_sum;
@@ -2770,7 +2809,7 @@ if ($user->isLoggedIn()) {
                                                 ?>
                                                     <tr>
                                                         <td><?= $value['name'] ?></td>
-                                                        <td><?= $value['batch_no'] ?></td>
+                                                        <td><?= $value['serial_name'] ?></td>
                                                         <td><?= $value['amount'] ?></td>
                                                         <td><?= $value['expire_date'] ?></td>
                                                         <td>
@@ -2889,6 +2928,176 @@ if ($user->isLoggedIn()) {
             </div>
             <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 10) { ?>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Medications Batch</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="index1.php">Home</a></li>
+                                    <li class="breadcrumb-item active">Medications Batch</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <?php
+                                        $patient = $override->get('clients', 'id', $_GET['cid'])[0];
+                                        $visits_status = $override->firstRow1('visit', 'status', 'id', 'client_id', $_GET['cid'], 'visit_code', 'EV')[0]['status'];
+
+                                        // $patient = $override->get('clients', 'id', $_GET['cid'])[0];
+                                        $category = $override->get('main_diagnosis', 'patient_id', $_GET['cid'])[0];
+                                        $cat = '';
+
+                                        if ($category['cardiac'] == 1) {
+                                            $cat = 'Cardiac';
+                                        } elseif ($category['diabetes'] == 1) {
+                                            $cat = 'Diabetes';
+                                        } elseif ($category['sickle_cell'] == 1) {
+                                            $cat = 'Sickle cell';
+                                        } else {
+                                            $cat = 'Not Diagnosed';
+                                        }
+
+
+                                        if ($patient['gender'] == 1) {
+                                            $gender = 'Male';
+                                        } elseif ($patient['gender'] == 2) {
+                                            $gender = 'Female';
+                                        }
+
+                                        $name = 'Name: ' . $patient['firstname'] . ' ' . $patient['lastname'] . ' Age: ' . $patient['age'] . ' Gender: ' . $gender . ' Type: ' . $cat;
+
+                                        ?>
+
+                                        <div class="col-sm-6">
+                                            <ol class="breadcrumb float-sm-right">
+                                                <li class="breadcrumb-item"><a href="index1.php">
+                                                        <a href='info.php?id=8' class="btn btn-default">Back</a>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Batch / Serial No.</th>
+                                                    <th>Amount</th>
+                                                    <th>Forms</th>
+                                                    <th>Expire Date</th>
+                                                    <th>Status</th>
+                                                    <th>Remarks</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $x = 1;
+                                                foreach ($override->getAsc('batch', 'status', 1) as $value) {
+                                                    $medication = $override->getNews('medications', 'status', 1, 'id', $value['medication_id'])['0'];
+                                                    $batch_sum = $override->getSumD2('batch', 'amount', 'status', 1, 'medication_id', $value['id'])[0]['SUM(amount)'];
+                                                    $forms = $override->getNews('forms', 'status', 1, 'id', $medication['forms'])[0];
+                                                    if ($batch_sum) {
+                                                        $batch_sum = $batch_sum;
+                                                    } elseif ($visit['status'] == 1) {
+                                                        $batch_sum = 0;
+                                                    }
+
+                                                ?>
+                                                    <tr>
+                                                        <td><?= $medication['name'] ?></td>
+                                                        <td><?= $value['serial_name'] ?></td>
+                                                        <td><?= $value['amount'] ?></td>
+                                                        <td><?= $forms['name'] ?></td>
+                                                        <td><?= $value['expire_date'] ?></td>
+                                                        <td>
+                                                            <?php if ($value['expire_date'] > date('Y-m-d')) { ?>
+                                                                <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-success" data-toggle="modal">Valid</a>
+                                                            <?php } elseif ($visit['status'] == 0) { ?>
+                                                                <a href="#editVisit<?= $visit['id'] ?>" role="button" class="btn btn-warning" data-toggle="modal">Expired</a>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td><?= $value['remarks'] ?></td>
+                                                        <td><?= $value['price'] ?></td>
+                                                        <td>
+                                                            <a href="add.php?id=6&batch_id=<?= $value['id'] ?>&medication_id=<?= $medication['id'] ?>&btn=Update" role="button" class="btn btn-info">Update</a>
+                                                            <a href="#delete_batch<?= $value['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <div class="modal fade" id="delete_batch<?= $value['id'] ?>">
+                                                        <div class="modal-dialog">
+                                                            <form method="post">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Delete Medication Batch</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p class="text-muted text-center">Are you sure yoy want to delete this medication batch ?</p>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <input type="hidden" name="id" value="<?= $value['id'] ?>">
+                                                                        <input type="hidden" name="name" value="<?= $value['serial_name'] ?>">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                                        <input type="submit" name="delete_batch" class="btn btn-danger" value="Yes, Delete">
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.modal-content -->
+                                                            </form>
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
+                                                <?php $x++;
+                                                } ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Batch / Serial No.</th>
+                                                    <th>Amount</th>
+                                                    <th>Forms</th>
+                                                    <th>Expire Date</th>
+                                                    <th>Status</th>
+                                                    <th>Remarks</th>
+                                                    <th>Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!--/.col (right) -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 11) { ?>
         <?php } elseif ($_GET['id'] == 12) { ?>
         <?php } elseif ($_GET['id'] == 13) { ?>
