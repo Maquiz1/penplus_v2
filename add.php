@@ -7007,16 +7007,6 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/history/surgery.js"></script>
     <script src="myjs/add/history/surgery_type.js"></script>
     <script src="myjs/add/history/tb.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-    <script src="myjs/add/history.js"></script>
-
-
-
 
 
     <script>

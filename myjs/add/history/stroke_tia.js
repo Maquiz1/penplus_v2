@@ -2,7 +2,7 @@ const stroke_tia = document.getElementById("stroke_tia");
 const stroke_tia_date = document.getElementById("stroke_tia_date");
 
 function showElement() {
-  if (cardiovascular.value === "1") {
+  if (stroke_tia.value === "1") {
     stroke_tia_date.style.display = "block";
   } else {
     stroke_tia_date.style.display = "none";
