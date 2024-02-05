@@ -19,10 +19,10 @@ function showElement() {
 }
 
 // Check if there's a previously selected value in localStorage
-const renalValue = localStorage.getItem("selectedValue");
+const hivValue = localStorage.getItem("selectedValue");
 
-if (renalValue) {
-  hiv.value = renalValue;
+if (hivValue) {
+  hiv.value = hivValue;
 }
 
 // Show element if Option 2 is selected
