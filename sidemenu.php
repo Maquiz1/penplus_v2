@@ -74,12 +74,12 @@ if ($user->isLoggedIn()) {
                                 <p>Dashboard v1</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="./index2.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dashboard v2</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="./index3.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
