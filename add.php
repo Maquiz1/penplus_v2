@@ -4801,7 +4801,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-3" id="stroke_tia_date">b 
+                                                    <div class="col-sm-3" id="stroke_tia_date">
                                                         <div class="row-form clearfix">
                                                             <!-- select -->
                                                             <div class="form-group">
@@ -4848,7 +4848,6 @@ if ($user->isLoggedIn()) {
                                                                 <input type="date" name="pvd_date" id="pvd_date" class="form-control" value="<?php if ($history['pvd_date']) {
                                                                                                                                                     print_r($history['pvd_date']);
                                                                                                                                                 }  ?>" />
-                                                                <span>Example: 2010-12-01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -5150,7 +5149,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Date Of Test</label>
-                                                            <input type="date" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
+                                                            <input type="number" name="hiv_test" class="form-control" value="<?php if ($history['hiv_test']) {
                                                                                                                                 print_r($history['hiv_test']);
                                                                                                                             }  ?>" />
                                                         </div>
@@ -5229,7 +5228,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Year TB tested</label>
-                                                            <input type="date" name="tb_year" class="form-control" value="<?php if ($history['tb_year']) {
+                                                            <input type="number" name="tb_year" class="form-control" value="<?php if ($history['tb_year']) {
                                                                                                                                 print_r($history['tb_year']);
                                                                                                                             }  ?>" />
                                                         </div>
@@ -5331,7 +5330,7 @@ if ($user->isLoggedIn()) {
                                                             <!-- select -->
                                                             <div class="form-group">
                                                                 <label>Date Test</label>
-                                                                <input type="text" name="hepatitis_date" class="form-control" value="<?php if ($history['hepatitis_date']) {
+                                                                <input type="date" name="hepatitis_date" class="form-control" value="<?php if ($history['hepatitis_date']) {
                                                                                                                                             print_r($history['hepatitis_date']);
                                                                                                                                         }  ?>" />
 
@@ -5464,7 +5463,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Quantity (number of bottle)</label>
-                                                            <input type="text" name="quantity" class="form-control" value="<?php if ($history['quantity']) {
+                                                            <input type="number" name="quantity" class="form-control" value="<?php if ($history['quantity']) {
                                                                                                                                 print_r($history['quantity']);
                                                                                                                             }  ?>" />
                                                         </div>
@@ -5677,7 +5676,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>How many siblings do you have?</label>
-                                                                <input type="text" name="siblings" class="form-control" value="<?php if ($history['siblings']) {
+                                                                <input type="number" name="siblings" class="form-control" value="<?php if ($history['siblings']) {
                                                                                                                                     print_r($history['siblings']);
                                                                                                                                 }  ?>" />
                                                             </div>
@@ -5688,7 +5687,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="row-form clearfix">
                                                             <div class="form-group">
                                                                 <label>How many of them are alive?</label>
-                                                                <input type="text" name="sibling_salive" class="form-control" value="<?php if ($history['sibling_salive']) {
+                                                                <input type="number" name="sibling_salive" class="form-control" value="<?php if ($history['sibling_salive']) {
                                                                                                                                             print_r($history['sibling_salive']);
                                                                                                                                         }  ?>" />
                                                             </div>
