@@ -34,7 +34,7 @@ $(document).ready(function () {
     var cols = "";
 
     cols +=
-      '<td><input type="text" class="form-control" name="admission_date[]"/></td>';
+      '<td><input type="date" class="form-control" name="admission_date[]"/></td>';
     cols +=
       '<td><input type="text" class="form-control" name="admission_reason[]"/></td>';
     cols +=

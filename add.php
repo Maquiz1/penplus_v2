@@ -7361,17 +7361,17 @@ if ($user->isLoggedIn()) {
 
                                                                 <tr>
                                                                     <td class="col-sm-4">
-                                                                        <input type="text" class="form-control" name="admission_date[]" id="admission_date[]" placeholder="Type admission_date..." value="<?php if ($hospitalization_table['admission_date']) {
+                                                                        <input class="form-control" name="admission_date[]" id="admission_date[]" value="<?php if ($hospitalization_table['admission_date']) {
                                                                                                                                                                                                                 print_r($hospitalization_table['admission_date']);
                                                                                                                                                                                                             }  ?>">
                                                                     </td>
                                                                     <td class="col-sm-4">
-                                                                        <input type="text" class="form-control" name="admission_reason[]" id="admission_reason[]" placeholder="Type admission_reason..." value="<?php if ($hospitalization_table['admission_reason']) {
+                                                                        <input class="form-control" name="admission_reason[]" id="admission_reason[]" value="<?php if ($hospitalization_table['admission_reason']) {
                                                                                                                                                                                                                     print_r($hospitalization_table['admission_reason']);
                                                                                                                                                                                                                 }  ?>">
                                                                     </td>
                                                                     <td class="col-sm-3">
-                                                                        <input type="text" class="form-control" name="discharge_diagnosis[]" value='<?php if ($hospitalization_table['discharge_diagnosis']) {
+                                                                        <input class="form-control" name="discharge_diagnosis[]" value='<?php if ($hospitalization_table['discharge_diagnosis']) {
                                                                                                                                                         print_r($hospitalization_table['discharge_diagnosis']);
                                                                                                                                                     }  ?>'>
                                                                     </td>
