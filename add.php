@@ -7575,7 +7575,7 @@ if ($user->isLoggedIn()) {
                                                                                                                                                                                                             }  ?>">
                                                                 </td>
                                                                 <td>
-                                                                    <select name="medication_action[]" class="form-control" id="medication_action[]" style="width: 100%;" required>
+                                                                    <select name="medication_action[]" class="form-control" id="medication_action[]" style="width: 80%;" required>
                                                                         <option value="<?= $treatment['medication_action'] ?>"><?php if ($treatment) {
                                                                                                                                     if ($treatment['medication_action'] == 1) {
                                                                                                                                         echo 'Continue';
