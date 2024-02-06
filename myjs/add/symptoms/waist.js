@@ -2,7 +2,7 @@ const waist = document.getElementById("waist");
 const score_waist = document.getElementById("score_waist");
 
 function showElement() {
-  if (upper_arms.value === "1") {
+  if (waist.value === "1") {
     score_waist.style.display = "block";
   } else {
     score_waist.style.display = "none";
