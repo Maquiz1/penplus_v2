@@ -7597,12 +7597,12 @@ if ($user->isLoggedIn()) {
                                                                     </select>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="medication_dose[]" style="width: 50%;" value='<?php if ($treatment['medication_dose']) {
+                                                                    <input type="text" class="form-control" name="medication_dose[]" style="width: 80%;" value='<?php if ($treatment['medication_dose']) {
                                                                                                                                                                     print_r($treatment['medication_dose']);
                                                                                                                                                                 }  ?>'>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="medication_units[]" style="width: 50%;" value='<?php if ($treatment['medication_units']) {
+                                                                    <input type="text" class="form-control" name="medication_units[]" style="width: 80%;" value='<?php if ($treatment['medication_units']) {
                                                                                                                                                                         print_r($treatment['medication_units']);
                                                                                                                                                                     }  ?>'>
                                                                 </td>

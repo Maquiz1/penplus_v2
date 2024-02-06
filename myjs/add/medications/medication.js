@@ -9,7 +9,7 @@ $(document).ready(function () {
     cols +=
       '<td><select class="form-control" name="medication_action[]" id="medication_action[]" style="width: 80%;"><option value="">Select</option><option value="1">Continue</option><option value="2">Start</option><option value="3">Stop</option><option value="4">Not Eligible</option></select></td>';
     cols +=
-      '<td><input type="number" min="0" max="1000" class="form-control" name="medication_dose[]"></td>';
+      '<td><input type="number" min="0" max="1000" style="width: 80%;" class="form-control" name="medication_dose[]"></td>';
 
     cols +=
       '<td><input type="text" class="form-control" name="medication_units[]"></td>';
