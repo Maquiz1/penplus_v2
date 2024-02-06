@@ -27,6 +27,9 @@ showElement();
 // Listen for changes in the dropdown
 hospitalization_ncd.addEventListener("change", showElement);
 
+
+
+
 $(document).ready(function () {
   var counter = 0;
   $("#addrow").on("click", function () {
