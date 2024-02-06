@@ -7362,18 +7362,18 @@ if ($user->isLoggedIn()) {
                                                                 <tr>
                                                                     <td class="col-sm-4">
                                                                         <input class="form-control" name="admission_date[]" id="admission_date[]" value="<?php if ($hospitalization_table['admission_date']) {
-                                                                                                                                                                                                                print_r($hospitalization_table['admission_date']);
-                                                                                                                                                                                                            }  ?>">
+                                                                                                                                                                print_r($hospitalization_table['admission_date']);
+                                                                                                                                                            }  ?>">
                                                                     </td>
                                                                     <td class="col-sm-4">
                                                                         <input class="form-control" name="admission_reason[]" id="admission_reason[]" value="<?php if ($hospitalization_table['admission_reason']) {
-                                                                                                                                                                                                                    print_r($hospitalization_table['admission_reason']);
-                                                                                                                                                                                                                }  ?>">
+                                                                                                                                                                    print_r($hospitalization_table['admission_reason']);
+                                                                                                                                                                }  ?>">
                                                                     </td>
                                                                     <td class="col-sm-3">
                                                                         <input class="form-control" name="discharge_diagnosis[]" value='<?php if ($hospitalization_table['discharge_diagnosis']) {
-                                                                                                                                                        print_r($hospitalization_table['discharge_diagnosis']);
-                                                                                                                                                    }  ?>'>
+                                                                                                                                            print_r($hospitalization_table['discharge_diagnosis']);
+                                                                                                                                        }  ?>'>
                                                                     </td>
                                                                     <td>
                                                                         <input type="button" class="ibtnDel btn btn-md btn-warning" value="Remove">
@@ -8472,6 +8472,8 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/medications/transfusion.js"></script>
     <script src="myjs/add/medications/vaccination.js"></script>
     <script src="myjs/add/medications/completed.js"></script>
+    <script src="myjs/add/medications/medication.js"></script>
+
 
     <!-- History Js -->
 
@@ -8671,7 +8673,6 @@ if ($user->isLoggedIn()) {
             myDropzone.removeAllFiles(true)
         }
         // DropzoneJS Demo Code End
-
     </script>
 </body>
 
