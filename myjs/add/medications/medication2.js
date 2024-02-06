@@ -32,38 +32,17 @@ $(document).ready(function () {
   });
 });
 
-function fetchData1() {
-  /*An array containing all the country names in the world:*/
-  // var getUid = $(this).val();
-  fetch("fetch_medications2.php")
-    .then((response) => response.json())
-    .then((data) => {
-      // Process the data received from the PHP script
-      // console.log(data);
-      autocomplete(document.getElementById(myInput), data);
-    })
-    .catch((error) => {
-      // Handle any errors that occurred during the fetch request
-      console.error("Error:", error);
-    });
-}
 
-// $(document).ready(function () {
-//   $("#fl_wait").hide();
+// function addRow() {
+//   var table = document.getElementById("medication_list");
+//   var row = table.insertRow();
+//   var cell1 = row.insertCell();
+//   var cell2 = row.insertCell();
 
-//   $("#medication_action").change(function () {
-// var getUid = $(this).val();
-$("#fl_wait").show();
-$.ajax({
-  url: "fetch_medications.php",
-  method: "GET",
-  data: {
-    getUid: 1,
-  },
-  success: function (data) {
-    $("#medication_action").html(data);
-    $("#fl_wait").hide();
-  },
-});
-//   });
-// });
+//   // Assuming the data is passed from PHP
+//   cell1.innerHTML = "<?php echo generateSelectOptions(); ?>";
+//   cell2.innerHTML = '<input type="text" name="otherField[]">';
+// }
+
+
+// $override->get('medications', 'status', 1);

@@ -7566,13 +7566,25 @@ if ($user->isLoggedIn()) {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php foreach ($override->getNews('medication_treatments', 'patient_id', $_GET['cid'], 'status', 1) as $treatment) { ?>
+                                                        <?php
+                                                         foreach ($override->getNews('medication_treatments', 'patient_id', $_GET['cid'], 'status', 1) as $treatment) {
+                                                            $medications = $override->getNews('medications', 'status', 1, 'id', $treatment['medication_type']);
+                                                            $batches = $override->getNews('batch', 'status', 1, 'id', $_GET['batch_id'])[0];                                                           
+                                                            
+                                                            ?>
 
                                                             <tr>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="medication_type[]" id="medication_type[]" placeholder="Type medications name..." value="<?php if ($treatment['medication_type']) {
-                                                                                                                                                                                                                print_r($treatment['medication_type']);
-                                                                                                                                                                                                            }  ?>">
+                                                                    <select name="medication_type" id="medication_type[]" class="form-control select2" style="width: 100%;" required>
+                                                                        <?php if (!$medications) { ?>
+                                                                            <option value="">Select Medication Name</option>
+                                                                        <?php } else { ?>
+                                                                            <option value="<?= $medications[0]['id'] ?>"><?= $medications[0]['name'] ?></option>
+                                                                        <?php } ?>
+                                                                        <?php foreach ($override->get('medications', 'status', 1) as $medication) { ?>
+                                                                            <option value="<?= $medication['id'] ?>"><?= $medication['name'] ?></option>
+                                                                        <?php } ?>
+                                                                    </select>                                                                   
                                                                 </td>
                                                                 <td>
                                                                     <select name="medication_action[]" class="form-control" id="medication_action[]" style="width: 80%;" required>
@@ -7607,7 +7619,6 @@ if ($user->isLoggedIn()) {
                                                                                                                                                                     }  ?>'>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="button" class="ibtnDel2 btn btn-md btn-warning" value="Remove">
                                                                     <a href="#delete_med<?= $treatment['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
                                                                 </td>
                                                             </tr>
@@ -7637,7 +7648,7 @@ if ($user->isLoggedIn()) {
                                                         <?php } ?>
                                                     </tbody>
                                                 </table>
-                                                <input type="button" class="btn btn-lg btn-block " id="addrow2" value="Add Row" />
+                                                <input type="button" class="btn btn-lg btn-block" onclick="add_Medication()" value="Add New Medication" />
                                             </div>
 
 
@@ -8472,7 +8483,9 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/medications/transfusion.js"></script>
     <script src="myjs/add/medications/vaccination.js"></script>
     <script src="myjs/add/medications/completed.js"></script>
-    <script src="myjs/add/medications/medication.js"></script>
+    <!-- <script src="myjs/add/medications/medication.js"></script> -->
+    <!-- <script src="myjs/add/medications/medication2.js"></script> -->
+
 
 
     <!-- History Js -->
@@ -8673,7 +8686,25 @@ if ($user->isLoggedIn()) {
             myDropzone.removeAllFiles(true)
         }
         // DropzoneJS Demo Code End
+
+
+
+        function add_Medication() {
+            var table = document.getElementById("medication_list");
+            var row = table.insertRow();
+            var medication_type = row.insertCell(0);
+            var medication_action = row.insertCell(1);
+            var medication_dose = row.insertCell(2);
+            var medication_units = row.insertCell(3);
+
+            // Assuming the data is passed from PHP
+            medication_type.innerHTML = '<select class="form-control select2" name="medication_type[]" id="medication_type[]" style="width: 100%;"><option value="">Select</option><?php foreach ($override->get('medications', 'status', 1) as $medication) { ?><option value="<?= $medication['id']; ?>"><?= $medication['name']; ?></option> <?php } ?></select>';
+            medication_action.innerHTML = '<select class="form-control" name="medication_action[]" id="medication_action[]" style="width: 100%;"><option value="">Select</option><option value="1">Continue</option><option value="2">Start</option><option value="3">Stop</option><option value="4">Not Eligible</option></select>';
+            medication_dose.innerHTML = '<input class="form-control" type="text" name="medication_dose[]">';
+            medication_units.innerHTML = '<inputclass="form-control"  type="text" name="medication_units[]">';
+        }
     </script>
+
 </body>
 
 </html>
