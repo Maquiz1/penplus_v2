@@ -5,7 +5,9 @@ $(document).ready(function () {
     var cols = "";
 
     cols +=
-      '<td><input class="autocomplete form-control" type="text" name="medication_type[]" id="myInput" placeholder="Type medications name..." onkeyup="fetchData1()"</td>';
+      '<td><input class="autocomplete form-control" type="text" name="medication_type[]" id="myInput" placeholder="Type medications name..." onkeyup="' +
+      fetchData1() +
+      '"</td>';
     cols +=
       '<td><select class="form-control" name="medication_action[]" id="medication_action[]" style="width: 80%;"><option value="">Select</option><option value="1">Continue</option><option value="2">Start</option><option value="3">Stop</option><option value="4">Not Eligible</option></select></td>';
     cols +=
@@ -26,7 +28,6 @@ $(document).ready(function () {
     counter -= 1;
   });
 });
-
 
 function fetchData1() {
   /*An array containing all the country names in the world:*/
