@@ -2777,7 +2777,7 @@ if ($user->isLoggedIn()) {
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
 
-    <style>
+    <!-- <style>
         #medication_table {
             border-collapse: collapse;
         }
@@ -2879,7 +2879,7 @@ if ($user->isLoggedIn()) {
         .hidden {
             display: none;
         }
-    </style>
+    </style> -->
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -7289,6 +7289,91 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
+                                            <div class="row-form clearfix">
+
+                                                <table id="myTable2" class="table order-list">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> Medication name </th>
+                                                            <th> Action </th>
+                                                            <th> Dose </th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach ($override->getNews('medication_treatments', 'patient_id', $_GET['cid'], 'status', 1) as $treatment) { ?>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="medication_type[]" id="medication_type[]" placeholder="Type medications name..." value="<?php if ($treatment['medication_type']) {
+                                                                                                                                                                                                                print_r($treatment['medication_type']);
+                                                                                                                                                                                                            }  ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <select name="medication_action[]" class="form-control" id="medication_action[]" style="width: 100%;" required>
+                                                                        <option value="<?= $treatment['medication_action'] ?>"><?php if ($treatment) {
+                                                                                                                                    if ($treatment['medication_action'] == 1) {
+                                                                                                                                        echo 'Continue';
+                                                                                                                                    } elseif ($treatment['medication_action'] == 2) {
+                                                                                                                                        echo 'Start';
+                                                                                                                                    } elseif ($treatment['medication_action'] == 3) {
+                                                                                                                                        echo 'Stop';
+                                                                                                                                    } elseif ($treatment['medication_action'] == 4) {
+                                                                                                                                        echo 'Not Eligible';
+                                                                                                                                    }
+                                                                                                                                } else {
+                                                                                                                                    echo 'Select';
+                                                                                                                                } ?>
+                                                                        </option>
+                                                                        <option value="1">Continue</option>
+                                                                        <option value="2">Start</option>
+                                                                        <option value="3">Stop</option>
+                                                                        <option value="4">Not Eligible</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="medication_dose[]" value='<?php if ($treatment['medication_dose']) {
+                                                                                                                                                print_r($treatment['medication_dose']);
+                                                                                                                                            }  ?>'>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="button" class="ibtnDel2 btn btn-md btn-warning" value="Remove">
+                                                                    <a href="#delete_med<?= $treatment['id'] ?>" role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                            <div class="modal fade" id="delete_med<?= $treatment['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <form method="post">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                                <h4>Delete this Medication</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <strong style="font-weight: bold;color: red">
+                                                                                    <p>Are you sure you want to delete this Medication ?</p>
+                                                                                </strong>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <input type="hidden" name="id" value="<?= $treatment['id'] ?>">
+                                                                                <input type="submit" name="delete_med" value="Delete" class="btn btn-danger">
+                                                                                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                                <input type="button" class="btn btn-lg btn-block " id="addrow2" value="Add Row" />
+                                            </div>
+
+
                                             <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'diabetes', 1)) { ?>
 
                                                 <div class="row">
@@ -8316,6 +8401,62 @@ if ($user->isLoggedIn()) {
             myDropzone.removeAllFiles(true)
         }
         // DropzoneJS Demo Code End
+
+
+
+
+        // Add row chemotherapy
+        document.getElementById("add-medication").addEventListener("click", function() {
+            var table = document.getElementById("medication_list").getElementsByTagName("tbody")[0];
+            var newRow = table.insertRow(table.rows.length);
+            var medication_type = newRow.insertCell(0);
+            var medication_action = newRow.insertCell(1);
+            var medication_dose = newRow.insertCell(2);
+            var actionCell = newRow.insertCell(3);
+            medication_type.innerHTML = '<input class="autocomplete" type="text" name="medication_type[]" id="myInput" placeholder="Type medications name..." onkeyup="fetchData()">';
+            medication_action.innerHTML = '<select name="medication_action[]" id="medication_action[]" style="width: 100%;"><option value="">Select</option><option value="1">Continue</option><option value="2">Start</option><option value="3">Stop</option><option value="4">Not Eligible</option></select>';
+            medication_dose.innerHTML = '<input type="text" name="medication_dose[]">';
+            actionCell.innerHTML = '<button type="button" class="remove-row">Remove</button>';
+            // console.log(medication_type);
+
+        });
+
+        // Add row chemotherapy
+        document.getElementById("add-hospitalization-details").addEventListener("click", function() {
+            var table = document.getElementById("hospitalization_details_table").getElementsByTagName("tbody")[0];
+            var newRow = table.insertRow(table.rows.length);
+            var admission_date = newRow.insertCell(0);
+            var admission_reason = newRow.insertCell(1);
+            var discharge_diagnosis = newRow.insertCell(2);
+            var actionCell = newRow.insertCell(3);
+            admission_date.innerHTML = '<input type="text" name="admission_date[]"><span>(Example: 2010-12-01)</span>';
+            admission_reason.innerHTML = '<input type="text" name="admission_reason[]">';
+            discharge_diagnosis.innerHTML = '<input type="text" name="discharge_diagnosis[]">';
+            actionCell.innerHTML = '<button type="button" class="remove-row">Remove</button>';
+        });
+
+
+        // Add row surgery
+        document.getElementById("add-sickle-cell-status").addEventListener("click", function() {
+            var table = document.getElementById("sickle_cell_table").getElementsByTagName("tbody")[0];
+            var newRow = table.insertRow(table.rows.length);
+            var age = newRow.insertCell(0);
+            var sex = newRow.insertCell(1);
+            var status = newRow.insertCell(2);
+            var actionCell = newRow.insertCell(3);
+            age.innerHTML = '<input type="text" name="age[]">';
+            sex.innerHTML = '<select name="sex[]" id="sex[]" style="width: 100%;"><option value="">Select</option><option value="1">Male</option><option value="2">Female</option></select>';
+            status.innerHTML = '<input type="text" name="sickle_status[]">';
+            actionCell.innerHTML = '<button type="button" class="remove-row">Remove</button>';
+        });
+
+        // Remove row
+        document.addEventListener("click", function(e) {
+            if (e.target && e.target.classList.contains("remove-row")) {
+                var row = e.target.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            }
+        });
     </script>
 </body>
 
