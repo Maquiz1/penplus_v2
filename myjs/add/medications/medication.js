@@ -19,22 +19,6 @@ $(document).ready(function () {
     newRow.append(cols);
     $("table.order-list").append(newRow);
     counter++;
-
-    function fetchData1() {
-      /*An array containing all the country names in the world:*/
-      // var getUid = $(this).val();
-      fetch("fetch_medications.php")
-        .then((response) => response.json())
-        .then((data) => {
-          // Process the data received from the PHP script
-          // console.log(data);
-          autocomplete(document.getElementById(myInput), data);
-        })
-        .catch((error) => {
-          // Handle any errors that occurred during the fetch request
-          console.error("Error:", error);
-        });
-    }
   });
 
   $("table.order-list").on("click", ".ibtnDel2", function (event) {
@@ -42,3 +26,20 @@ $(document).ready(function () {
     counter -= 1;
   });
 });
+
+
+function fetchData1() {
+  /*An array containing all the country names in the world:*/
+  // var getUid = $(this).val();
+  fetch("fetch_medications.php")
+    .then((response) => response.json())
+    .then((data) => {
+      // Process the data received from the PHP script
+      // console.log(data);
+      autocomplete(document.getElementById(myInput), data);
+    })
+    .catch((error) => {
+      // Handle any errors that occurred during the fetch request
+      console.error("Error:", error);
+    });
+}
