@@ -9975,7 +9975,851 @@ if ($user->isLoggedIn()) {
             </div>
             <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 19) { ?>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Diagnosis, Complications, & Comorbidities</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="index1.php">Home</a></li>
+                                    <li class="breadcrumb-item active">Diagnosis, Complications, & Comorbidities</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
 
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <?php
+                            $dgns_complctns_comorbdts = $override->get3('dgns_complctns_comorbdts', 'patient_id', $_GET['cid'], 'seq_no', $_GET['seq'], 'visit_code', $_GET['vcode'])[0];
+                            $patient = $override->get('clients', 'id', $_GET['cid'])[0];
+                            $category = $override->get('main_diagnosis', 'patient_id', $_GET['cid'])[0];
+                            $cat = '';
+
+                            if ($category['cardiac'] == 1) {
+                                $cat = 'Cardiac';
+                            } elseif ($category['diabetes'] == 1) {
+                                $cat = 'Diabetes';
+                            } elseif ($category['sickle_cell'] == 1) {
+                                $cat = 'Sickle cell';
+                            } else {
+                                $cat = 'Not Diagnosed';
+                            }
+
+
+                            if ($patient['gender'] == 1) {
+                                $gender = 'Male';
+                            } elseif ($patient['gender'] == 2) {
+                                $gender = 'Female';
+                            }
+
+                            $name = 'Patient ID: ' . $patient['study_id'] . ' Age: ' . $patient['age'] . ' Gender: ' . $gender . ' Type: ' . $cat;
+                            ?>
+                            <!-- right column -->
+                            <div class="col-md-12">
+                                <!-- general form elements disabled -->
+                                <div class="card card-warning">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Date</h3>
+                                        <!-- <h3 class="card-title">
+                                            <strong style="font-size: larger">
+                                                <?= $name ?>
+                                            </strong>
+                                        </h3> -->
+                                    </div>
+                                    <!-- Content Header (Page header) -->
+                                    <section class="content-header">
+                                        <div class="container-fluid">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-3">
+                                                    <ol class="breadcrumb">
+                                                        <li class="breadcrumb-item"><a href="#">Patient ID:</a></li>
+                                                        <li class="breadcrumb-item active"><?= $patient['study_id']; ?></li>
+                                                    </ol>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <ol class="breadcrumb">
+                                                        <li class="breadcrumb-item"><a href="#">Age:</a></li>
+                                                        <li class="breadcrumb-item active"><?= $patient['age']; ?></li>
+                                                    </ol>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <ol class="breadcrumb float-sm-right">
+                                                        <li class="breadcrumb-item"><a href="#">Gender</a></li>
+                                                        <li class="breadcrumb-item active"><?= $gender; ?></li>
+                                                    </ol>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <ol class="breadcrumb float-sm-right">
+                                                        <li class="breadcrumb-item"><a href="#">Type</a></li>
+                                                        <li class="breadcrumb-item active"><?= $cat; ?></li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.container-fluid -->
+                                    </section>
+                                    <!-- /.card-header -->
+                                    <form id="validation" enctype="multipart/form-data" method="post" autocomplete="off">
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Visit Date:</label>
+                                                            <input class="form-control" style="width: 100%;" type="date" name="diagns_date" id="diagns_date" value="<?php if ($dgns_complctns_comorbdts['diagns_date']) {
+                                                                                                                                                                        print_r($dgns_complctns_comorbdts['diagns_date']);
+                                                                                                                                                                    }  ?>" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Has diagnosis been changed or specified?:</label>
+                                                            <select name="diagns_changed" id="diagns_changed" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('diagns_changed','ncd_diagns')">
+                                                                <option value="<?= $dgns_complctns_comorbdts['diagns_changed'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                        if ($dgns_complctns_comorbdts['diagns_changed'] == 1) {
+                                                                                                                                            echo 'Yes';
+                                                                                                                                        } elseif ($dgns_complctns_comorbdts['diagns_changed'] == 2) {
+                                                                                                                                            echo 'No';
+                                                                                                                                        }
+                                                                                                                                    } else {
+                                                                                                                                        echo 'Select';
+                                                                                                                                    } ?>
+                                                                </option>
+                                                                <option value="1">Yes</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="ncd_diagns">
+                                                <div class="row">
+                                                    <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'cardiac', 1)) { ?>
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>If yes, what is the NCD diagnosis?:</label>
+                                                                    <select name="diagns_cardiac" id="diagns_cardiac" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['diagns_cardiac'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['diagns_cardiac'] == 1) {
+                                                                                                                                                    echo 'Cardiomyopathy';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 2) {
+                                                                                                                                                    echo 'Rheumatic Heart Disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 3) {
+                                                                                                                                                    echo 'Severe / Uncontrolled Hypertension';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 4) {
+                                                                                                                                                    echo 'Hypertensive Heart Disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 5) {
+                                                                                                                                                    echo 'Congenital heart Disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 6) {
+                                                                                                                                                    echo 'Right Heart Failure';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 7) {
+                                                                                                                                                    echo 'Pericardial disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 8) {
+                                                                                                                                                    echo 'Coronary Artery Disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 9) {
+                                                                                                                                                    echo 'Arrhythmia';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 10) {
+                                                                                                                                                    echo 'Thromboembolic';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 11) {
+                                                                                                                                                    echo 'Stroke';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_cardiac'] == 96) {
+                                                                                                                                                    echo 'Other';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Cardiomyopathy</option>
+                                                                        <option value="2">Rheumatic Heart Disease</option>
+                                                                        <option value="3">Severe / Uncontrolled Hypertension</option>
+                                                                        <option value="4">Hypertensive Heart Disease</option>
+                                                                        <option value="5">Congenital heart Disease</option>
+                                                                        <option value="6">Right Heart Failure</option>
+                                                                        <option value="7">Pericardial disease</option>
+                                                                        <option value="8">Coronary Artery Disease</option>
+                                                                        <option value="9">Arrhythmia</option>
+                                                                        <option value="10">Thromboembolic</option>
+                                                                        <option value="11">Stroke</option>
+                                                                        <option value="96">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    <?php } ?>
+
+                                                    <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'diabetes', 1)) { ?>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>If yes, what is the NCD diagnosis?:</label>
+                                                                    <select name="diagns_diabetes" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['diagns_diabetes'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['diagns_diabetes'] == 1) {
+                                                                                                                                                    echo 'Type 1 DM';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_diabetes'] == 2) {
+                                                                                                                                                    echo 'Type 2 DM';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_diabetes'] == 3) {
+                                                                                                                                                    echo 'Gestational DM';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_diabetes'] == 4) {
+                                                                                                                                                    echo 'DM not yet specified';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_diabetes'] == 96) {
+                                                                                                                                                    echo 'Other';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Type 1 DM</option>
+                                                                        <option value="2">Type 2 DM</option>
+                                                                        <option value="3">Gestational DM</option>
+                                                                        <option value="4">DM not yet specified</option>
+                                                                        <option value="96">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+
+
+
+                                                    <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'sickle_cell', 1)) { ?>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>If yes, what is the NCD diagnosis?:</label>
+                                                                    <select name="diagns_sickle" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['diagns_sickle'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['diagns_sickle'] == 1) {
+                                                                                                                                                    echo 'Sickle Cell Disease';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_sickle'] == 2) {
+                                                                                                                                                    echo 'Other hemoglobinopathy';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['diagns_sickle'] == 96) {
+                                                                                                                                                    echo 'Other';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Sickle Cell Disease</option>
+                                                                        <option value="2">Other hemoglobinopathy</option>
+                                                                        <option value="96">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+
+
+                                                    <div class="col-sm-6" id="diagns_specify">
+                                                        <div class="row-form clearfix">
+                                                            <!-- select -->
+                                                            <div class="form-group">
+                                                                <label>Specify diagnosis:</label>
+                                                                <input type="text" name="diagns_specify" class="form-control" value="<?php if ($dgns_complctns_comorbdts['diagns_specify']) {
+                                                                                                                                            print_r($dgns_complctns_comorbdts['diagns_specify']);
+                                                                                                                                        }  ?>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>New NCD diagnosis?</label>
+                                                            <select name="new_diagns" id="new_diagns" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('new_diagns','new_diagns_specify')">
+                                                                <option value="<?= $dgns_complctns_comorbdts['new_diagns'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                    if ($dgns_complctns_comorbdts['new_diagns'] == 1) {
+                                                                                                                                        echo 'Yes';
+                                                                                                                                    } elseif ($dgns_complctns_comorbdts['new_diagns'] == 2) {
+                                                                                                                                        echo 'No';
+                                                                                                                                    }
+                                                                                                                                } else {
+                                                                                                                                    echo 'Select';
+                                                                                                                                } ?></option>
+                                                                <option value="1">Yes</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6" id="new_diagns_specify">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>If Yes,What is the new NCD ?:</label>
+                                                            <select name="new_diagns_specify" class="form-control" style="width: 100%;">
+                                                                <option value="<?= $dgns_complctns_comorbdts['new_diagns_specify'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['new_diagns_specify'] == 1) {
+                                                                                                                                                echo 'Rheumatic Heart diseases';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['new_diagns_specify'] == 2) {
+                                                                                                                                                echo 'Sickle Cell Disease';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['new_diagns_specify'] == 3) {
+                                                                                                                                                echo 'Gestitional Diabetes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['new_diagns_specify'] == 4) {
+                                                                                                                                                echo 'Diabetes type 1';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['new_diagns_specify'] == 5) {
+                                                                                                                                                echo 'Diabetes type 2';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                <option value="1">Rheumatic Heart diseases</option>
+                                                                <option value="2">Sickle Cell Disease</option>
+                                                                <option value="3">Gestitional Diabetes</option>
+                                                                <option value="4">Diabetes type 1</option>
+                                                                <option value="5">Diabetes type 2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">New complications</h3>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row-form clearfix">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Any new complications?</label>
+                                                            <select name="diagns_complication" id="diagns_complication" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('diagns_complication','new_ncd_diagns')" required>
+                                                                <option value="<?= $dgns_complctns_comorbdts['diagns_complication'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['diagns_complication'] == 1) {
+                                                                                                                                                echo 'Yes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['diagns_complication'] == 2) {
+                                                                                                                                                echo 'No';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                <option value="1">Yes</option>
+                                                                <option value="2">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="new_ncd_diagns">
+
+                                                <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'cardiac', 1)) { ?>
+                                                    <div class="row">
+
+
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>CKD ?</label>
+                                                                    <select name="cmplctn_ckd" id="cmplctn_ckd" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_ckd'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['cmplctn_ckd'] == 1) {
+                                                                                                                                                echo 'Yes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['cmplctn_ckd'] == 2) {
+                                                                                                                                                echo 'No';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Depression ?</label>
+                                                                    <select name="cmplctn_depression" id="cmplctn_depression" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_depression'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_depression'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_depression'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                <?php } ?>
+
+                                                <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'diabetes', 1)) { ?>
+
+
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Cardiovascular</label>
+                                                                    <select name="cmplctn_cardiovascular" id="cmplctn_cardiovascular" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_cardiovascular'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                        if ($dgns_complctns_comorbdts['cmplctn_cardiovascular'] == 1) {
+                                                                                                                                                            echo 'Yes';
+                                                                                                                                                        } elseif ($dgns_complctns_comorbdts['cmplctn_cardiovascular'] == 2) {
+                                                                                                                                                            echo 'No';
+                                                                                                                                                        }
+                                                                                                                                                    } else {
+                                                                                                                                                        echo 'Select';
+                                                                                                                                                    } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Neuropathy</label>
+                                                                    <select name="cmplctn_neuropathy" id="cmplctn_neuropathy" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_neuropathy'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_neuropathy'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_neuropathy'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Sexual dysfunction</label>
+                                                                    <select name="cmplctn_dysfunction" id="cmplctn_dysfunction" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_dysfunction'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_dysfunction'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_dysfunction'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>PVD</label>
+                                                                    <select name="cmplctn_pvd" id="cmplctn_pvd" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_pvd'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['cmplctn_pvd'] == 1) {
+                                                                                                                                                echo 'Yes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['cmplctn_pvd'] == 2) {
+                                                                                                                                                echo 'No';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Retinopathy</label>
+                                                                    <select name="cmplctn_retinopathy" id="cmplctn_retinopathy" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_retinopathy'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_retinopathy'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_retinopathy'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Renal disease</label>
+                                                                    <select name="cmplctn_renal" id="cmplctn_renal" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_renal'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['cmplctn_renal'] == 1) {
+                                                                                                                                                    echo 'Yes';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['cmplctn_renal'] == 2) {
+                                                                                                                                                    echo 'No';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <?php } ?>
+
+                                                <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'sickle_cell', 1) || $override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'diabetes', 1)) { ?>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Pain Event</label>
+                                                                    <select name="cmplctn_pain_event" id="cmplctn_pain_event" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_pain_event'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_pain_event'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_pain_event'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Stroke / TIA</label>
+                                                                    <select name="cmplctn_stroke" id="cmplctn_stroke" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_stroke'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['cmplctn_stroke'] == 1) {
+                                                                                                                                                    echo 'Yes';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['cmplctn_stroke'] == 2) {
+                                                                                                                                                    echo 'No';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                <?php } ?>
+
+
+                                                <?php if ($override->get2('main_diagnosis', 'patient_id', $_GET['cid'], 'sickle_cell', 1)) { ?>
+                                                    <div class="row">
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Pneumonia</label>
+                                                                    <select name="cmplctn_pneumonia" id="cmplctn_pneumonia" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_pneumonia'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_pneumonia'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_pneumonia'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>PRIAPISM</label>
+                                                                    <select name="cmplctn_priapism" id="cmplctn_priapism" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_priapism'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_priapism'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_priapism'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>AVN</label>
+                                                                    <select name="cmplctn_avn" id="cmplctn_avn" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_avn'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['cmplctn_avn'] == 1) {
+                                                                                                                                                echo 'Yes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['cmplctn_avn'] == 2) {
+                                                                                                                                                echo 'No';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>HYPERSPLENISM</label>
+                                                                    <select name="cmplctn_hypersplenism" id="cmplctn_hypersplenism" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_hypersplenism'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                        if ($dgns_complctns_comorbdts['cmplctn_hypersplenism'] == 1) {
+                                                                                                                                                            echo 'Yes';
+                                                                                                                                                        } elseif ($dgns_complctns_comorbdts['cmplctn_hypersplenism'] == 2) {
+                                                                                                                                                            echo 'No';
+                                                                                                                                                        }
+                                                                                                                                                    } else {
+                                                                                                                                                        echo 'Select';
+                                                                                                                                                    } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>CHRONIC LEG ULCER</label>
+                                                                    <select name="cmplctn_ulcer" id="cmplctn_ulcer" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_ulcer'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                if ($dgns_complctns_comorbdts['cmplctn_ulcer'] == 1) {
+                                                                                                                                                    echo 'Yes';
+                                                                                                                                                } elseif ($dgns_complctns_comorbdts['cmplctn_ulcer'] == 2) {
+                                                                                                                                                    echo 'No';
+                                                                                                                                                }
+                                                                                                                                            } else {
+                                                                                                                                                echo 'Select';
+                                                                                                                                            } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>VISUAL LOSS</label>
+                                                                    <select name="cmplctn_visual_loss" id="cmplctn_visual_loss" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_visual_loss'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_visual_loss'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_visual_loss'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Blood Transfusion</label>
+                                                                    <select name="cmplctn_transfusion" id="cmplctn_transfusion" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_transfusion'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_transfusion'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_transfusion'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="row-form clearfix">
+                                                                <!-- select -->
+                                                                <div class="form-group">
+                                                                    <label>Acute chest syndrome</label>
+                                                                    <select name="cmplctn_syndrome" id="cmplctn_syndrome" class="form-control" style="width: 100%;">
+                                                                        <option value="<?= $dgns_complctns_comorbdts['cmplctn_syndrome'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                                    if ($dgns_complctns_comorbdts['cmplctn_syndrome'] == 1) {
+                                                                                                                                                        echo 'Yes';
+                                                                                                                                                    } elseif ($dgns_complctns_comorbdts['cmplctn_syndrome'] == 2) {
+                                                                                                                                                        echo 'No';
+                                                                                                                                                    }
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'Select';
+                                                                                                                                                } ?></option>
+                                                                        <option value="1">Yes</option>
+                                                                        <option value="2">No</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="row-form clearfix">
+                                                            <!-- select -->
+                                                            <div class="form-group">
+                                                                <label>Any Other Complication?</label>
+                                                                <select name="cmplctn_other" id="cmplctn_other" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('cmplctn_other','complication_specify')">
+                                                                    <option value="<?= $dgns_complctns_comorbdts['cmplctn_other'] ?>"><?php if ($dgns_complctns_comorbdts) {
+                                                                                                                                            if ($dgns_complctns_comorbdts['cmplctn_other'] == 1) {
+                                                                                                                                                echo 'Yes';
+                                                                                                                                            } elseif ($dgns_complctns_comorbdts['cmplctn_other'] == 2) {
+                                                                                                                                                echo 'No';
+                                                                                                                                            }
+                                                                                                                                        } else {
+                                                                                                                                            echo 'Select';
+                                                                                                                                        } ?></option>
+                                                                    <option value="1">Yes</option>
+                                                                    <option value="2">No</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-sm-6" id="complication_specify">
+                                                        <div class="row-form clearfix">
+                                                            <!-- select -->
+                                                            <div class="form-group">
+                                                                <label>Specify Other:</label>
+                                                                <input type="text" name="complication_specify" class="form-control" value="<?php if ($dgns_complctns_comorbdts['complication_specify']) {
+                                                                                                                                                print_r($dgns_complctns_comorbdts['complication_specify']);
+                                                                                                                                            }  ?>" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <a href='info.php?id=7&cid=<?= $_GET['cid'] ?>&vid=<?= $_GET['vid'] ?>&vcode=<?= $_GET['vcode'] ?>&seq=<?= $_GET['seq'] ?>&sid=<?= $_GET['sid'] ?>&vday=<?= $_GET['vday'] ?>' class="btn btn-default">Back</a>
+                                            <?php if ($user->data()->position == 1 || $user->data()->position == 3 || $user->data()->position == 4 || $user->data()->position == 5) { ?>
+
+                                                <input type="submit" name="add_dgns_complctns_comorbdts" value="Submit" class="btn btn-primary">
+                                            <?php } ?>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!--/.col (right) -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
         <?php } elseif ($_GET['id'] == 20) { ?>
         <?php } elseif ($_GET['id'] == 21) { ?>
         <?php } elseif ($_GET['id'] == 22) { ?>
@@ -10117,6 +10961,16 @@ if ($user->isLoggedIn()) {
     <!-- hospitalization_details Js -->
 
     <script src="myjs/add/hospitalization_details/hospitalization_ncd.js"></script>
+
+    <!-- Diagnosis, Complications & Comorbidities Js -->
+
+    <script src="myjs/add/diagnosis_complications_comorbidities/diagns_changed.js"></script>
+    <script src="myjs/add/diagnosis_complications_comorbidities/diagns_specify.js"></script>
+    <script src="myjs/add/diagnosis_complications_comorbidities/new_complications.js"></script>
+    <script src="myjs/add/diagnosis_complications_comorbidities/new_ncd_diagnosis.js"></script>
+    <script src="myjs/add/diagnosis_complications_comorbidities/other_complications.js"></script>
+    <script src="myjs/add/diagnosis_complications_comorbidities"></script>
+
 
 
 
