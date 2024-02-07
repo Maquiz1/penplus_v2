@@ -11047,32 +11047,6 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <!-- <div class="col-sm-4">
-                                            <div class="row-form clearfix"> -->
-                                                <!-- select -->
-                                                <!-- <div class="form-group">
-                                                    <label>Socioeconomic question?:</label>
-                                                    <select name="social_economic" id="social_economic" style="width: 100%;" required>
-                                                        <option value="<?= $risks['social_economic'] ?>"><?php if ($risks) {
-                                                                                                                if ($risks['social_economic'] == 1) {
-                                                                                                                    echo 'Yes';
-                                                                                                                } elseif ($risks['social_economic'] == 2) {
-                                                                                                                    echo 'No';
-                                                                                                                } elseif ($risks['social_economic'] == 3) {
-                                                                                                                    echo 'N/A';
-                                                                                                                }
-                                                                                                            } else {
-                                                                                                                echo 'Select';
-                                                                                                            } ?>
-                                                        </option>
-                                                        <option value="1">Yes</option>
-                                                        <option value="2">No</option>
-                                                        <option value="3">N/A</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                             </div>
 
                                             <div class="card card-warning">
@@ -11120,7 +11094,7 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3" id="art2">
+                                                <div class="col-sm-3" id="risk_art1">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>On ART ?</label>
