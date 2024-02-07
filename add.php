@@ -10874,7 +10874,7 @@ if ($user->isLoggedIn()) {
                                 <!-- general form elements disabled -->
                                 <div class="card card-warning">
                                     <div class="card-header">
-                                        <h3 class="card-title">RISKS</h3>
+                                        <h3 class="card-title">Date</h3>
                                         <!-- <h3 class="card-title">
                                             <strong style="font-size: larger">
                                                 <?= $name ?>
@@ -11075,10 +11075,12 @@ if ($user->isLoggedIn()) {
                                         </div> -->
                                             </div>
 
-                                            <div class="head clearfix">
-                                                <div class="isw-ok"></div>
-                                                <h1>Last HIv test</h1>
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Last HIV test</h3>
+                                                </div>
                                             </div>
+
 
                                             <div class="row">
                                                 <div class="col-sm-4">
@@ -11155,9 +11157,10 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
 
-                                            <div class="head clearfix">
-                                                <div class="isw-ok"></div>
-                                                <h1>Last TB screening</h1>
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Last TB screening</h3>
+                                                </div>
                                             </div>
 
                                             <div class="row">
