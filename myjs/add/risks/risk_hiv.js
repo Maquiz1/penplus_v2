@@ -6,7 +6,7 @@ function showElement() {
   if (risk_hiv.value === "1") {
     risk_hiv_date.style.display = "block";
     risk_art1.style.display = "block";
-  } else if (hiv.value === "2") {
+  } else if (risk_hiv.value === "2") {
     risk_hiv_date.style.display = "block";
     risk_art1.style.display = "none";
   } else {

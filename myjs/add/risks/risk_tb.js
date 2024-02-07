@@ -4,7 +4,7 @@ const risk_tb_date = document.getElementById("risk_tb_date");
 function showElement() {
   if (risk_tb.value === "1") {
     risk_tb_date.style.display = "block";
-  } else if (tb.value === "2") {
+  } else if (risk_tb.value === "2") {
     risk_tb_date.style.display = "block";
   } else if (tb.value === "3") {
     risk_tb_date.style.display = "block";
