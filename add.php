@@ -11057,7 +11057,7 @@ if ($user->isLoggedIn()) {
 
 
                                             <div class="row">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -11082,7 +11082,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4" id="risk_hiv_date">
+                                                <div class="col-sm-3" id="risk_hiv_date">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
@@ -11117,7 +11117,7 @@ if ($user->isLoggedIn()) {
 
 
 
-                                                <div class="col-sm-4" id="risk_art_date">
+                                                <div class="col-sm-3" id="risk_art_date">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
