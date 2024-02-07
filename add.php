@@ -12121,6 +12121,15 @@ if ($user->isLoggedIn()) {
     <script src="myjs/add/diagnosis_complications_comorbidities"></script>
 
 
+    <!-- RISKS Js -->
+
+    <script src="myjs/add/risks/risk_art.js"></script>
+    <script src="myjs/add/risks/risk_hiv.js"></script>
+    <script src="myjs/add/risks/risk_tb.js"></script>
+    <script src="myjs/add/risks"></script>
+
+
+
 
 
     <script>
