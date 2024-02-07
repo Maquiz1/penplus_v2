@@ -6,7 +6,7 @@ function showElement() {
     risk_tb_date.style.display = "block";
   } else if (risk_tb.value === "2") {
     risk_tb_date.style.display = "block";
-  } else if (tb.value === "3") {
+  } else if (risk_tb.value === "3") {
     risk_tb_date.style.display = "block";
   } else {
     risk_tb_date.style.display = "none";
