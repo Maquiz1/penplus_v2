@@ -10921,9 +10921,9 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Visit Date:</label>
-                                                            <input class="validate[required,custom[date]]" type="text" name="risk_date" id="risk_date" value="<?php if ($risks['risk_date']) {
-                                                                                                                                                                    print_r($risks['risk_date']);
-                                                                                                                                                                }  ?>" required />
+                                                            <input class="form-control" type="date" name="risk_date" id="risk_date" value="<?php if ($risks['risk_date']) {
+                                                                                                                                                print_r($risks['risk_date']);
+                                                                                                                                            }  ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -10933,7 +10933,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Tobacco:</label>
-                                                            <select name="risk_tobacco" id="risk_tobacco" style="width: 100%;">
+                                                            <select name="risk_tobacco" id="risk_tobacco" class="form-control" style="width: 100%;">
                                                                 <option value="<?= $risks['risk_tobacco'] ?>"><?php if ($risks) {
                                                                                                                     if ($risks['risk_tobacco'] == 1) {
                                                                                                                         echo 'Yes, currently';
@@ -10963,7 +10963,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Alcohol:</label>
-                                                            <select name="risk_alcohol" id="risk_alcohol" style="width: 100%;">
+                                                            <select name="risk_alcohol" id="risk_alcohol" class="form-control" style="width: 100%;">
                                                                 <option value="<?= $risks['risk_alcohol'] ?>"><?php if ($risks) {
                                                                                                                     if ($risks['risk_alcohol'] == 1) {
                                                                                                                         echo 'Yes, currently';
@@ -10995,7 +10995,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Employment status:</label>
-                                                            <select name="risk_employment" id="risk_employment" style="width: 100%;">
+                                                            <select name="risk_employment" id="risk_employment" class="form-control" style="width: 100%;">
                                                                 <option value="<?= $risks['risk_employment'] ?>"><?php if ($risks) {
                                                                                                                         if ($risks['risk_employment'] == 1) {
                                                                                                                             echo 'Employed';
@@ -11027,7 +11027,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>NCD limiting school?:</label>
-                                                            <select name="ncd_limiting" id="ncd_limiting" style="width: 100%;">
+                                                            <select name="ncd_limiting" id="ncd_limiting" class="form-control" style="width: 100%;">
                                                                 <option value="<?= $risks['ncd_limiting'] ?>"><?php if ($risks) {
                                                                                                                     if ($risks['ncd_limiting'] == 1) {
                                                                                                                         echo 'Yes';
@@ -11088,7 +11088,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>HIV:</label>
-                                                            <select name="risk_hiv" id="risk_hiv" style="width: 100%;" onchange="check2QuestionValue2('risk_hiv','risk_hiv_date','art2')">
+                                                            <select name="risk_hiv" id="risk_hiv" style="width: 100%;" class="form-control" onchange="check2QuestionValue2('risk_hiv','risk_hiv_date','art2')">
                                                                 <option value="<?= $risks['risk_hiv'] ?>"><?php if ($risks) {
                                                                                                                 if ($risks['risk_hiv'] == 1) {
                                                                                                                     echo 'R';
@@ -11104,28 +11104,27 @@ if ($user->isLoggedIn()) {
                                                                 <option value="1">R</option>
                                                                 <option value="2">NR</option>
                                                                 <option value="3">Unknown</option>
-
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4 hidden" id="risk_hiv_date">
+                                                <div class="col-sm-4" id="risk_hiv_date">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Date Test:</label>
-                                                            <input type="text" name="risk_hiv_date" value="<?php if ($risks['risk_hiv_date']) {
-                                                                                                                print_r($risks['risk_hiv_date']);
-                                                                                                            }  ?>" />
+                                                            <input type="date" name="risk_hiv_date" class="form-control" value="<?php if ($risks['risk_hiv_date']) {
+                                                                                                                                    print_r($risks['risk_hiv_date']);
+                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3 hidden" id="art2">
+                                                <div class="col-sm-3" id="art2">
                                                     <div class="row-form clearfix">
                                                         <div class="form-group">
                                                             <label>On ART ?</label>
-                                                            <select name="risk_art" id="risk_art" style="width: 100%;" onchange="checkQuestionValue1('art','risk_art_date')">
+                                                            <select name="risk_art" id="risk_art" style="width: 100%;" class="form-control" onchange="checkQuestionValue1('art','risk_art_date')">
                                                                 <option value="<?= $history['art'] ?>"><?php if ($history) {
                                                                                                             if ($history['art'] == 1) {
                                                                                                                 echo 'Yes';
@@ -11144,14 +11143,14 @@ if ($user->isLoggedIn()) {
 
 
 
-                                                <div class="col-sm-4 hidden" id="risk_art_date">
+                                                <div class="col-sm-4" id="risk_art_date">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>ART start date:</label>
-                                                            <input type="text" name="risk_art_date" value="<?php if ($risks['risk_art_date']) {
-                                                                                                                print_r($risks['risk_art_date']);
-                                                                                                            }  ?>" />
+                                                            <input type="date" name="risk_art_date" class="form-control" value="<?php if ($risks['risk_art_date']) {
+                                                                                                                                    print_r($risks['risk_art_date']);
+                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -11169,7 +11168,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>TB:</label>
-                                                            <select name="risk_tb" id="risk_tb" style="width: 100%;" onchange="checkNotQuestionValue4('risk_tb','risk_tb_date')">
+                                                            <select name="risk_tb" id="risk_tb" class="form-control" style="width: 100%;" onchange="checkNotQuestionValue4('risk_tb','risk_tb_date')">
                                                                 <option value="<?= $risks['risk_tb'] ?>"><?php if ($risks) {
                                                                                                                 if ($risks['risk_tb'] == 1) {
                                                                                                                     echo 'Positive : Smear / Xpert / Other';
@@ -11193,14 +11192,14 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 hidden" id="risk_tb_date">
+                                                <div class="col-sm-6" id="risk_tb_date">
                                                     <div class="row-form clearfix">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Date Screened:</label>
-                                                            <input type="text" name="risk_tb_date" value="<?php if ($risks['risk_tb_date']) {
-                                                                                                                print_r($risks['risk_tb_date']);
-                                                                                                            }  ?>" />
+                                                            <input type="date" name="risk_tb_date" class="form-control" value="<?php if ($risks['risk_tb_date']) {
+                                                                                                                                    print_r($risks['risk_tb_date']);
+                                                                                                                                }  ?>" />
                                                         </div>
                                                     </div>
                                                 </div>
