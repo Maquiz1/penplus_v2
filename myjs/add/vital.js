@@ -19,7 +19,7 @@ function passValue() {
       // Set the value of the input field
       inputField.value = valueToPass;
     }, 1);
-  });
+  });hematology_test;
 
 
 }
