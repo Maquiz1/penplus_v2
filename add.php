@@ -11379,7 +11379,7 @@ if ($user->isLoggedIn()) {
                                                             <!-- select -->
                                                             <div class="form-group">
                                                                 <label>Cardiac surgery / intervention?:</label>
-                                                                <select name="cardiac_surgery" id="cardiac_surgery" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('cardiac_surgery','cardiac_surgery_type')">
+                                                                <select name="cardiac_surgery" id="cardiac_surgery2" class="form-control" style="width: 100%;" onchange="checkQuestionValue1('cardiac_surgery','cardiac_surgery_type')">
                                                                     <option value="<?= $lab_details['cardiac_surgery'] ?>"><?php if ($lab_details) {
                                                                                                                                 if ($lab_details['cardiac_surgery'] == 1) {
                                                                                                                                     echo 'Yes';
@@ -11397,7 +11397,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-4" id="cardiac_surgery_type">
+                                                    <div class="col-sm-4" id="cardiac_surgery_type2">
                                                         <div class="row-form clearfix">
                                                             <!-- select -->
                                                             <div class="form-group">
